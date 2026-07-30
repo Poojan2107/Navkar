@@ -1446,15 +1446,9 @@ function LocationSection() {
               <motion.div
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-[#FAFAF8] p-7 transition-all duration-300 hover:border-[#2D7A82]/40 hover:shadow-xl"
+                className="group rounded-3xl border border-gray-200 bg-[#FAFAF8] p-7 transition-all duration-300 hover:border-[#2D7A82]/40 hover:shadow-xl"
               >
-                <div
-                  role="presentation"
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-0 right-0 h-full w-[42%] bg-cover bg-center opacity-[0.18] transition-opacity duration-300 group-hover:opacity-[0.28]"
-                  style={{ backgroundImage: `url(${IMG.yard04})` }}
-                />
-                <div className="relative flex items-start gap-5">
+                <div className="flex items-start gap-5">
                   <div className="w-12 h-12 rounded-2xl bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] shrink-0 group-hover:bg-[#2D7A82] group-hover:text-white transition-all duration-300">
                     <MapPin size={20} />
                   </div>
@@ -1479,15 +1473,9 @@ function LocationSection() {
               <motion.div
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-[#FAFAF8] p-7 transition-all duration-300 hover:border-[#2D7A82]/40 hover:shadow-xl"
+                className="group rounded-3xl border border-gray-200 bg-[#FAFAF8] p-7 transition-all duration-300 hover:border-[#2D7A82]/40 hover:shadow-xl"
               >
-                <div
-                  role="presentation"
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-0 right-0 h-full w-[42%] bg-cover bg-center opacity-[0.16] transition-opacity duration-300 group-hover:opacity-25"
-                  style={{ backgroundImage: `url(${IMG.yard22})` }}
-                />
-                <div className="relative flex items-start gap-5">
+                <div className="flex items-start gap-5">
                   <div className="w-12 h-12 rounded-2xl bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] shrink-0 group-hover:bg-[#2D7A82] group-hover:text-white transition-all duration-300">
                     <Factory size={20} />
                   </div>
