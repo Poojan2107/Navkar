@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://navkartubes.com/sitemap.xml

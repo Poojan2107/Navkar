@@ -1,0 +1,135 @@
+[
+  {
+    "id": "export-01",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.01 PM (1).jpeg",
+    "src": "576x1280",
+    "out": "576x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-02",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.01 PM (2).jpeg",
+    "src": "576x1280",
+    "out": "576x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-03",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.01 PM.jpeg",
+    "src": "577x1280",
+    "out": "577x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-04",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.02 PM (1).jpeg",
+    "src": "577x1280",
+    "out": "577x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-05",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.02 PM (2).jpeg",
+    "src": "576x1280",
+    "out": "576x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-06",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.02 PM.jpeg",
+    "src": "576x1280",
+    "out": "576x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-07",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.03 PM (1).jpeg",
+    "src": "720x1280",
+    "out": "720x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-08",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.03 PM (2).jpeg",
+    "src": "1280x720",
+    "out": "1280x720",
+    "landscape": true
+  },
+  {
+    "id": "export-09",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.03 PM (3).jpeg",
+    "src": "1280x960",
+    "out": "1280x960",
+    "landscape": true
+  },
+  {
+    "id": "export-10",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.03 PM.jpeg",
+    "src": "1280x960",
+    "out": "1280x960",
+    "landscape": true
+  },
+  {
+    "id": "export-11",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.04 PM (1).jpeg",
+    "src": "1280x719",
+    "out": "1280x719",
+    "landscape": true
+  },
+  {
+    "id": "export-12",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.04 PM (2).jpeg",
+    "src": "1280x960",
+    "out": "1280x960",
+    "landscape": true
+  },
+  {
+    "id": "export-13",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.04 PM.jpeg",
+    "src": "963x1280",
+    "out": "963x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-14",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.05 PM (1).jpeg",
+    "src": "1280x960",
+    "out": "1280x960",
+    "landscape": true
+  },
+  {
+    "id": "export-15",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.05 PM (2).jpeg",
+    "src": "1280x960",
+    "out": "1280x960",
+    "landscape": true
+  },
+  {
+    "id": "export-16",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.05 PM.jpeg",
+    "src": "1280x719",
+    "out": "1280x719",
+    "landscape": true
+  },
+  {
+    "id": "export-17",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.06 PM (1).jpeg",
+    "src": "720x1280",
+    "out": "720x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-18",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.06 PM (2).jpeg",
+    "src": "960x1280",
+    "out": "960x1280",
+    "landscape": false
+  },
+  {
+    "id": "export-19",
+    "file": "WhatsApp Image 2026-07-22 at 5.30.06 PM.jpeg",
+    "src": "1280x963",
+    "out": "1280x963",
+    "landscape": true
+  }
+]
