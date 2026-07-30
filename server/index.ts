@@ -20,11 +20,38 @@ type InquiryBody = {
   [key: string]: unknown;
 };
 
+const runningFromDist = __filename.replace(/\\/g, "/").includes("/dist/");
+
+function getStaticPath() {
+  return runningFromDist
+    ? path.resolve(__dirname, "public")
+    : path.resolve(__dirname, "..", "dist", "public");
+}
+
+function getInquiryLogPath() {
+  return path.join(path.resolve(__dirname, "..", "data"), "inquiries.jsonl");
+}
+
+function appendInquiry(body: InquiryBody) {
+  const logFile = getInquiryLogPath();
+  const logDir = path.dirname(logFile);
+
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+
+  fs.appendFileSync(logFile, `${JSON.stringify(body)}\n`, "utf8");
+}
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
 
   app.use(express.json({ limit: "32kb" }));
+
+  app.get("/api/health", (_req, res) => {
+    res.json({ ok: true, service: "navkar-tubes" });
+  });
 
   app.post("/api/inquiry", (req, res) => {
     const body = req.body as InquiryBody;
@@ -34,37 +61,45 @@ async function startServer() {
       return;
     }
 
-    const logDir = path.resolve(__dirname, "..", "data");
-    const logFile = path.join(logDir, "inquiries.jsonl");
+    const record = {
+      ...body,
+      name: body.name.trim(),
+      phone: body.phone.trim(),
+      receivedAt: new Date().toISOString(),
+    };
 
     try {
-      if (!fs.existsSync(logDir)) {
-        fs.mkdirSync(logDir, { recursive: true });
-      }
-      fs.appendFileSync(logFile, `${JSON.stringify(body)}\n`, "utf8");
+      appendInquiry(record);
     } catch (err) {
       console.error("Failed to persist inquiry:", err);
+      res.status(500).json({ error: "Could not save inquiry. Please call +91 9601702883." });
+      return;
     }
 
-    console.log(`[inquiry:${body.type ?? "unknown"}]`, body.name, body.phone);
+    console.log(`[inquiry:${body.type ?? "unknown"}]`, record.name, record.phone);
     res.status(200).json({ ok: true });
   });
 
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
-
+  const staticPath = getStaticPath();
   app.use(express.static(staticPath));
 
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+  // SPA fallback — never swallow /api routes
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api/")) {
+      res.status(404).json({ error: "Not found" });
+      return;
+    }
+
+    res.sendFile(path.join(staticPath, "index.html"), (err) => {
+      if (err) next(err);
+    });
   });
 
-  const port = process.env.PORT || 3000;
+  const port = Number(process.env.PORT) || 3000;
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    console.log(`Serving static files from ${staticPath}`);
   });
 }
 
