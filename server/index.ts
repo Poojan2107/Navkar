@@ -40,7 +40,7 @@ function appendInquiry(body: InquiryBody) {
     fs.mkdirSync(logDir, { recursive: true });
   }
 
-  fs.appendFileSync(logFile, `${JSON.stringify(body)}\n`, "utf8");
+  fs.appendFileSync(logFile, JSON.stringify(body) + "\n", "utf8");
 }
 
 async function startServer() {
