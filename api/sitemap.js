@@ -1,12 +1,8 @@
-import { getSiteUrl, listYardUpdates } from "./_lib/yard-feed";
+import { getSiteUrl, listYardUpdates } from "./_lib/yard-feed.js";
 
-type VercelResponse = {
-  status: (code: number) => VercelResponse;
-  setHeader: (key: string, value: string) => void;
-  send: (data: string) => void;
-};
+const SITE = "https://navkar-tubes-and-pipes.vercel.app";
 
-const STATIC_PATHS: { path: string; changefreq: string; priority: string }[] = [
+const STATIC_PATHS = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/products", changefreq: "weekly", priority: "0.9" },
   { path: "/products/erw-pipes", changefreq: "monthly", priority: "0.7" },
@@ -22,16 +18,11 @@ const STATIC_PATHS: { path: string; changefreq: string; priority: string }[] = [
   { path: "/catalogue", changefreq: "monthly", priority: "0.9" },
 ];
 
-function xmlEscape(value: string) {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+function xmlEscape(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-export default function handler(_req: unknown, res: VercelResponse) {
-  const origin = getSiteUrl();
-  const now = new Date();
-  const today = now.toISOString().slice(0, 10);
-  const updates = listYardUpdates(now);
-
+function buildXml(origin, today, updates) {
   const urls = [
     ...STATIC_PATHS.map(
       (item) => `  <url>
@@ -51,13 +42,26 @@ export default function handler(_req: unknown, res: VercelResponse) {
     ),
   ];
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join("\n")}
 </urlset>
 `;
+}
 
-  res.setHeader("Content-Type", "application/xml; charset=utf-8");
-  res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-  res.status(200).send(xml);
+export default function handler(_req, res) {
+  try {
+    const origin = getSiteUrl();
+    const now = new Date();
+    const xml = buildXml(origin, now.toISOString().slice(0, 10), listYardUpdates(now));
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+    res.status(200).send(xml);
+  } catch (err) {
+    console.error("sitemap failed:", err);
+    const today = new Date().toISOString().slice(0, 10);
+    const xml = buildXml(SITE, today, []);
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.status(200).send(xml);
+  }
 }

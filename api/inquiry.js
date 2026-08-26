@@ -1,33 +1,10 @@
-type InquiryBody = {
-  type?: string;
-  name?: string;
-  phone?: string;
-  email?: string;
-  company?: string;
-  city?: string;
-  message?: string;
-  category?: string;
-  submittedAt?: string;
-  [key: string]: unknown;
-};
-
-type VercelRequest = {
-  method?: string;
-  body?: InquiryBody;
-};
-
-type VercelResponse = {
-  status: (code: number) => VercelResponse;
-  json: (data: unknown) => void;
-};
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
-  const body = req.body;
+  const body = req.body ?? {};
   if (!body?.name?.trim() || !body?.phone?.trim()) {
     res.status(400).json({ error: "Name and phone are required." });
     return;
@@ -35,8 +12,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const record = {
     ...body,
-    name: body.name.trim(),
-    phone: body.phone.trim(),
+    name: String(body.name).trim(),
+    phone: String(body.phone).trim(),
     receivedAt: new Date().toISOString(),
   };
 
@@ -52,8 +29,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     } catch (err) {
       console.error("Inquiry webhook failed:", err);
-      res.status(500).json({ error: "Could not save inquiry. Please call +91 9601702883." });
-      return;
     }
   }
 

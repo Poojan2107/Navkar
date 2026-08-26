@@ -1,6 +1,11 @@
 {
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist/public",
+  "functions": {
+    "api/sitemap.js": { "includeFiles": "api/_lib/**" },
+    "api/updates.js": { "includeFiles": "api/_lib/**" },
+    "api/publish-update.js": { "includeFiles": "api/_lib/**" }
+  },
   "crons": [
     {
       "path": "/api/publish-update",

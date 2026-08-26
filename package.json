@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "esbuild api/_lib/yard-feed.ts --outfile=api/_lib/yard-feed.js --format=esm --platform=node && vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",

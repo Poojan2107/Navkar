@@ -192,7 +192,10 @@ export function getUpdateById(id: string, now = new Date()): YardUpdate | undefi
 }
 
 export function latestUpdate(now = new Date()): YardUpdate {
-  return listYardUpdates(now)[0];
+  const updates = listYardUpdates(now);
+  if (updates[0]) return updates[0];
+  const { year, month, day } = istParts(now);
+  return buildUpdateForSlot({ id: `nk-${ymd(year, month, day)}`, year, month, day }, 0, now);
 }
 
 export function getSiteUrl() {
