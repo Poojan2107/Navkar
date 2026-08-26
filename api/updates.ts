@@ -1,31 +1,37 @@
-import type { IncomingMessage, ServerResponse } from "http";
-import { getUpdateById, listYardUpdates } from "../shared/yard-feed";
+import { getUpdateById, listYardUpdates } from "./_lib/yard-feed";
 
-function send(res: ServerResponse, status: number, data: unknown) {
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
+type VercelRequest = {
+  method?: string;
+  query?: { id?: string | string[] };
+  url?: string;
+};
+
+type VercelResponse = {
+  status: (code: number) => VercelResponse;
+  json: (data: unknown) => void;
+  setHeader: (key: string, value: string) => void;
+};
+
+export default function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
-  res.end(JSON.stringify(data));
-}
 
-export default function handler(req: IncomingMessage, res: ServerResponse) {
   if (req.method && req.method !== "GET") {
-    send(res, 405, { error: "Method not allowed" });
+    res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
-  const url = new URL(req.url ?? "/", "http://localhost");
-  const id = url.searchParams.get("id");
+  const rawId = req.query?.id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
 
   if (id) {
     const update = getUpdateById(id);
     if (!update) {
-      send(res, 404, { error: "Update not found" });
+      res.status(404).json({ error: "Update not found" });
       return;
     }
-    send(res, 200, { update });
+    res.status(200).json({ update });
     return;
   }
 
-  send(res, 200, { updates: listYardUpdates() });
+  res.status(200).json({ updates: listYardUpdates() });
 }

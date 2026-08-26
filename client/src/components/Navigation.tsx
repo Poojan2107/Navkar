@@ -99,6 +99,8 @@ export default function Navigation() {
               </button>
 
               <button
+                type="button"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="p-2 rounded-xl text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
@@ -116,14 +118,14 @@ export default function Navigation() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden bg-[#0A1628] text-white border-t border-white/10 px-6 py-6"
+              className="lg:hidden overflow-x-visible bg-[#0A1628] text-white border-t border-white/10 px-5 py-6 sm:px-6"
             >
               <div className="flex flex-col gap-3">
                 {links.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
-                    className="py-2 text-sm font-mono tracking-wider uppercase border-b border-white/5 flex items-center justify-between"
+                    className="flex items-center justify-between border-b border-white/5 py-2.5 pl-1 text-sm font-mono uppercase tracking-wider"
                     onClick={() => setMobileOpen(false)}
                   >
                     <span>{link.label}</span>

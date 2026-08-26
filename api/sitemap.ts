@@ -1,5 +1,10 @@
-import type { IncomingMessage, ServerResponse } from "http";
-import { getSiteUrl, listYardUpdates } from "../shared/yard-feed";
+import { getSiteUrl, listYardUpdates } from "./_lib/yard-feed";
+
+type VercelResponse = {
+  status: (code: number) => VercelResponse;
+  setHeader: (key: string, value: string) => void;
+  send: (data: string) => void;
+};
 
 const STATIC_PATHS: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
@@ -21,7 +26,7 @@ function xmlEscape(value: string) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-export default function handler(_req: IncomingMessage, res: ServerResponse) {
+export default function handler(_req: unknown, res: VercelResponse) {
   const origin = getSiteUrl();
   const now = new Date();
   const today = now.toISOString().slice(0, 10);
@@ -52,8 +57,7 @@ ${urls.join("\n")}
 </urlset>
 `;
 
-  res.statusCode = 200;
   res.setHeader("Content-Type", "application/xml; charset=utf-8");
   res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-  res.end(xml);
+  res.status(200).send(xml);
 }
