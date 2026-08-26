@@ -27,7 +27,7 @@ function buildXml(origin, today, updates) {
     ...STATIC_PATHS.map(
       (item) => `  <url>
     <loc>${xmlEscape(origin + item.path)}</loc>
-    <lastmod>${item.path === "/updates" ? updates[0]?.publishedAt.slice(0, 10) ?? today : today}</lastmod>
+    <lastmod>${item.path === "/" || item.path === "/updates" ? updates[0]?.publishedAt.slice(0, 10) ?? today : today}</lastmod>
     <changefreq>${item.changefreq}</changefreq>
     <priority>${item.priority}</priority>
   </url>`

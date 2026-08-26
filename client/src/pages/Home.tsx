@@ -13,6 +13,7 @@ import { handleImgError } from "@/lib/assetFallback";
 import { FadeUp } from "@/hooks/useScrollAnimation";
 import { IMG } from "@/asset-map";
 import { VATVA_YARD, RAKHIAL_OFFICE } from "@/lib/company";
+import DirectAnswers from "@/components/DirectAnswers";
 
 function SectionLabel({ text, dark = false, centered = false }: { text: string; dark?: boolean; centered?: boolean }) {
   return (
@@ -886,6 +887,8 @@ function JindalSection({ onOpenCert }: { onOpenCert: () => void }) {
 function FAQSection() {
   const faqs = [
     { q: "Is Navkar Tubes an authorized Jindal pipes dealer?", a: "Yes. Navkar Tubes & Tools is an authorized channel partner of Jindal (India) Limited for MS ERW black pipes and GI hollow sections, operating from Ahmedabad since 1995." },
+    { q: "Do you supply MS pipes, ERW pipes and GI pipes in Ahmedabad?", a: "Yes. We are an MS pipes dealer and ERW pipes supplier in Ahmedabad and Gujarat. The Vatva yard stocks Jindal and Asian MS ERW, GI pipes, GI hollow sections, MS square pipes and seamless hydraulic tubes, plus ceramic lancing we manufacture in-house." },
+    { q: "Are you an Asian pipes dealer in Gujarat?", a: "Yes. Navkar stocks Asian pipes in Ahmedabad for construction, water and structural use, alongside Jindal ERW. Call +91 9601702883 for dealer pricing, MTC and same-day loading." },
     { q: "Which pipe sizes and products do you stock?", a: "We stock MS ERW black pipes from 15 MM to 500 MM OD, GI square & rectangular hollow sections (SHS/RHS), and Ceramic Lancing pipes. Full range available at our Ahmedabad yards." },
     { q: "Where is Navkar Tubes located?", a: "Our stock yard is at Plot No. 1426/B, Trikampura Patiya, Phase-3, GIDC Vatva, Ahmedabad 382445. The sales office is at No. 8, Jaymangal Estate, Near Gujarat Bottling, Rakhial, Ahmedabad 380023. We also handle nationwide project logistics." },
     { q: "How do I get a free quotation for MS pipes?", a: "Request a quote by clicking 'GET QUOTE' on the website, calling +91 9601702883 or emailing navkartube@gmail.com. Specify OD, wall thickness, length, and quantity." },
@@ -1252,6 +1255,7 @@ export default function Home() {
       <PageLoader />
       <HeroSection onRequestQuote={() => handleOpenQuote()} />
       <Marquee />
+      <DirectAnswers />
       <TrustHub onOpenCert={() => setShowCert(true)} />
       <ProductsSection />
       <WhyNavkarSection />

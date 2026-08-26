@@ -9,18 +9,29 @@ function isAuthorized(req) {
 }
 
 async function pingIndexNow(urls) {
-  const host = new URL(getSiteUrl()).host;
-  const response = await fetch("https://api.indexnow.org/indexnow", {
-    method: "POST",
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-    body: JSON.stringify({
-      host,
-      key: INDEXNOW_KEY,
-      keyLocation: `${getSiteUrl()}/${INDEXNOW_KEY}.txt`,
-      urlList: urls,
-    }),
+  const origin = getSiteUrl();
+  const host = new URL(origin).host;
+  const payload = JSON.stringify({
+    host,
+    key: INDEXNOW_KEY,
+    keyLocation: `${origin}/${INDEXNOW_KEY}.txt`,
+    urlList: urls,
   });
-  return { ok: response.ok, status: response.status };
+  const endpoints = ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"];
+  const results = [];
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: payload,
+      });
+      results.push({ endpoint, ok: response.ok, status: response.status });
+    } catch (err) {
+      results.push({ endpoint, ok: false, status: 0, error: String(err) });
+    }
+  }
+  return results;
 }
 
 export default async function handler(req, res) {
@@ -37,7 +48,13 @@ export default async function handler(req, res) {
 
     const update = latestUpdate();
     const origin = getSiteUrl();
-    const urls = [`${origin}/updates/${update.id}`, `${origin}/updates`, `${origin}/sitemap.xml`];
+    const urls = [
+      `${origin}/`,
+      `${origin}/products`,
+      `${origin}/updates/${update.id}`,
+      `${origin}/updates`,
+      `${origin}/sitemap.xml`,
+    ];
 
     let indexNow = { ok: false, status: 0 };
     try {

@@ -24,6 +24,7 @@ import About from "./pages/About";
 import Jindal from "./pages/Jindal";
 import Catalogue from "./pages/Catalogue";
 import { resolvePageTitle } from "./hooks/usePageTitle";
+import SeoHead from "./components/SeoHead";
 
 function Router() {
   const [location] = useLocation();
@@ -74,6 +75,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <SeoHead />
           <Navigation />
           <Router />
           <Footer />

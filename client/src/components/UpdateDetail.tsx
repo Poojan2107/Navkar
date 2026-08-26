@@ -197,9 +197,12 @@ export default function UpdateDetailView({ update, prevHref, nextHref }: UpdateD
 
               <a
                 href="tel:+919601702883"
-                className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white py-4 text-xs font-semibold uppercase tracking-wider text-[#0A1628] transition-colors hover:border-[#2D7A82] hover:text-[#2D7A82]"
+                className="flex min-h-12 w-full items-center justify-center gap-2.5 rounded-2xl bg-[#2D7A82] py-4 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-lg shadow-[#2D7A82]/30 ring-2 ring-[#2D7A82]/20 transition-colors hover:bg-[#1f646c]"
               >
-                <Phone size={14} /> Call Yard Desk
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
+                  <Phone size={15} />
+                </span>
+                Call Yard Desk
               </a>
             </div>
           </aside>

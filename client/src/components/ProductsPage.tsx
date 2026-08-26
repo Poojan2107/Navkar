@@ -274,7 +274,7 @@ export default function ProductsPage() {
           </span>
         }
         title="Industrial Product Portfolio"
-        description="Authorized Jindal & Asian MS ERW pipes, GI hollow sections, ceramic lancing tubes, and heavy fittings — ready stock dispatches from Ahmedabad, Gujarat."
+        description="MS pipes dealer and ERW pipes supplier in Ahmedabad: Jindal & Asian ERW, GI pipes, MS square pipes, seamless hydraulic tubes, ceramic lancing and fittings — mill-certified ready stock from Gujarat."
       />
 
       {/* Search & category filter — single control strip */}
