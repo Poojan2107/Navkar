@@ -1,4 +1,4 @@
-export const SITE_URL = "https://navkartubes.com";
+export const SITE_URL = "https://navkar-tubes-and-pipes.vercel.app";
 
 export type YardUpdate = {
   id: string;
