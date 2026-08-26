@@ -3,8 +3,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import {
   ArrowRight, ChevronDown, Shield, Award, Sun,
   FlaskConical, Ruler, MapPin, Download,
-  Sparkles, CheckCircle2, ShieldCheck, Wrench, Gauge, ChevronRight,
-  Eye, Star, Droplets, Weight, Factory, HelpCircle
+  Sparkles, CheckCircle2, ShieldCheck, Gauge, ChevronRight,
+  Star, Droplets, Weight, Factory, HelpCircle
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import QuoteModal from "@/components/QuoteModal";
@@ -12,6 +12,7 @@ import { GoogleMapEmbed } from "@/components/Map";
 import { handleImgError } from "@/lib/assetFallback";
 import { FadeUp } from "@/hooks/useScrollAnimation";
 import { IMG } from "@/asset-map";
+import { VATVA_YARD, RAKHIAL_OFFICE } from "@/lib/company";
 
 function SectionLabel({ text, dark = false, centered = false }: { text: string; dark?: boolean; centered?: boolean }) {
   return (
@@ -154,13 +155,12 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto pt-6 border-t border-white/10"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto pt-6 border-t border-white/10"
           >
             {[
               { label: "DEALERSHIP", value: "Jindal Authorized Partner" },
-              { label: "READY STOCK", value: "10,000+ MT Ahmedabad Stock" },
+              { label: "READY STOCK", value: "1,000+ MT Ahmedabad Stock" },
               { label: "PIPE SIZES", value: "15 MM to 500 MM OD" },
-              { label: "MANUFACTURING", value: "Ceramic Lancing Plant" },
             ].map((m, i) => (
               <div key={i} className="p-3 bg-white/[0.04] backdrop-blur rounded-xl border border-white/[0.08]">
                 <span className="block text-[10px] font-mono text-[#5EAEB3] uppercase tracking-[0.2em] font-bold mb-0.5">{m.label}</span>
@@ -171,17 +171,6 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
         </motion.div>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5"
-      >
-        <span className="text-white/20 text-[10px] font-mono tracking-[0.3em] uppercase">Scroll</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-          <ChevronDown size={16} className="text-white/20" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
@@ -309,7 +298,7 @@ function TrustHub({ onOpenCert }: { onOpenCert: () => void }) {
                 alt="Navkar Tubes pipe stock yard Ahmedabad"
                 fallback="yardPanoramic"
                 label="Ahmedabad Stock Yard"
-                title="10,000+ MT Ready Stock"
+                title="1,000+ MT Ready Stock"
                 subtitle="Crane-assisted loading infrastructure"
                 focal="center 40%"
                 imageClassName="min-h-[220px] sm:min-h-0"
@@ -357,7 +346,7 @@ function TrustHub({ onOpenCert }: { onOpenCert: () => void }) {
             <div className="relative z-10 grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-4">
               {[
                 { val: <><AnimatedCounter target={30} speed={600} />+</>, label: "Years Experience", accent: "Est. 1995" },
-                { val: <><AnimatedCounter target={10000} speed={600} />+</>, label: "MT Ready Stock", accent: "Ahmedabad Yards" },
+                { val: <><AnimatedCounter target={1000} speed={600} />+</>, label: "MT Ready Stock", accent: "Ahmedabad Yards" },
                 { val: <><AnimatedCounter target={500} speed={600} />+</>, label: "Corporate Clients", accent: "PSUs & Private" },
                 { val: "100%", label: "Factory MTC", accent: "Batch Verified" },
               ].map((stat, i) => (
@@ -441,7 +430,7 @@ const PRODUCTS = [
   },
   {
     id: "lancing", title: "Ceramic Coated Lancing Tubes", shortTitle: "Lancing Tubes",
-    tag: "3/8\" TO 1.5\" NB • HEAT RESISTANT 1650°C",
+    tag: "6MM TO 48.3 MM • HEAT RESISTANT 1650°C",
     desc: "Refractory ceramic calorized lancing pipes manufactured in our specialized Ahmedabad plant for steel melt shop furnace blowing and copper refining.",
     badge: "PROPRIETARY PLANT",
     img: IMG.lancingPipes,
@@ -672,7 +661,7 @@ function WhyNavkarSection() {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6">
             <div>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#0A1628] font-semibold">
-                Why Navkar &amp; Jindal ERW?
+                Why Navkar Tubes
               </h2>
               <p className="text-gray-500 mt-3 max-w-xl text-base leading-relaxed">
                 Six pillars of trust backing three decades of industrial steel distribution in Ahmedabad, Gujarat.
@@ -829,315 +818,7 @@ function IndustrySection({ onRequestQuote }: { onRequestQuote: () => void }) {
   );
 }
 
-/* ─── 7. TECHNICAL DASHBOARD ─── DARK */
-function TechnicalDashboard() {
-  const [tab, setTab] = useState<"mechanical" | "chemical" | "dimensional">("mechanical");
-
-  const tabs = [
-    { id: "mechanical" as const, label: "MECHANICAL PROPERTIES", icon: <Wrench size={16} />, desc: "Tensile, Yield Strength & Elongation" },
-    { id: "chemical" as const, label: "CHEMICAL COMPOSITION", icon: <FlaskConical size={16} />, desc: "Carbon, Manganese & Sulfur Tolerances" },
-    { id: "dimensional" as const, label: "DIMENSIONAL TOLERANCES", icon: <Ruler size={16} />, desc: "Wall Thickness & OD Caliper Checks" },
-  ];
-
-  return (
-    <section className="py-28 lg:py-36 bg-[#FAFAF8] relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#0A1628_1px,transparent_1px)] [background-size:24px_24px]" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#2D7A82]/[0.06] to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-20 right-20 w-[300px] h-[300px] bg-gradient-to-bl from-[#0A1628]/[0.03] to-transparent rounded-full blur-2xl pointer-events-none" />
-
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-        <SectionLabel text="Technical Inspection Dashboard" />
-        <FadeUp>
-          <div className="mb-14 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#0A1628] font-semibold leading-[0.95] tracking-tight">
-                Material Inspection &amp;{" "}
-                <span className="text-[#2D7A82]">Engineering Blueprint</span>
-              </h2>
-              <p className="text-gray-500 text-base mt-5 max-w-lg leading-relaxed">
-                IS-standard mechanical, chemical and dimensional verification for every consignment dispatched from our Ahmedabad stock.
-              </p>
-              <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-[#2D7A82]/20 bg-[#2D7A82]/10 px-5 py-3 font-mono text-xs font-bold text-[#2D7A82]">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#2D7A82]" />
-                IS 1239 / IS 3589 Standards
-              </div>
-            </div>
-            <div className="relative hidden overflow-hidden rounded-2xl border border-gray-200 shadow-lg lg:col-span-5 lg:block lg:h-48">
-              <img src={IMG.yard22} alt="Pipe inspection at yard" className="h-full w-full object-cover object-center" onError={(e) => handleImgError(e, "yard22")} />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent" />
-              <p className="absolute bottom-4 left-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#5EAEB3]">
-                Live Yard Inspection
-              </p>
-            </div>
-          </div>
-        </FadeUp>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            <div className="flex flex-col gap-3 flex-1">
-              {tabs.map((t) => (
-                <motion.button
-                  key={t.id}
-                  onClick={() => setTab(t.id)}
-                  whileTap={{ scale: 0.97 }}
-                  layout
-                  className={`w-full text-left p-4 rounded-2xl transition-all duration-300 cursor-pointer border flex items-center justify-between relative overflow-hidden flex-1 ${
-                    tab === t.id
-                      ? "bg-[#0A1628] text-white border-[#0A1628] shadow-lg shadow-[#0A1628]/15"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-[#2D7A82]/40 hover:shadow-md hover:-translate-y-0.5"
-                  }`}
-                >
-                  {tab === t.id && (
-                    <motion.div layoutId="tabGlow" className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-[#2D7A82]" />
-                  )}
-                  <div className="flex items-center gap-4">
-                    <motion.div
-                      animate={tab === t.id ? { scale: [1, 1.12, 1] } : { scale: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                        tab === t.id ? "bg-[#2D7A82] text-white shadow-sm shadow-[#2D7A82]/30" : "bg-white text-[#2D7A82] border border-gray-200"
-                      }`}
-                    >
-                      {t.icon}
-                    </motion.div>
-                    <div>
-                      <h4 className="font-mono text-xs font-bold tracking-[0.1em]">{t.label}</h4>
-                      <p className={`text-xs mt-0.5 ${tab === t.id ? "text-white/60" : "text-gray-400"}`}>{t.desc}</p>
-                    </div>
-                  </div>
-                  <ChevronRight size={16} className={`transition-all duration-300 shrink-0 ${tab === t.id ? "rotate-90 text-[#2D7A82] translate-x-0.5" : "text-gray-300"}`} />
-                </motion.button>
-              ))}
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white border border-[#2D7A82]/20 text-xs font-mono text-gray-500 space-y-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#2D7A82]/40">
-              <div className="flex items-center justify-between text-[#2D7A82] font-bold">
-                <span className="flex items-center gap-2"><ShieldCheck size={14} /> MILL CERTIFICATE #</span>
-                <span>MTC-JND-2026</span>
-              </div>
-              <p className="leading-relaxed">Every consignment delivered with original factory Mill Test Certificates corresponding to heat batch numbers stenciled on pipe ends.</p>
-            </div>
-          </div>
-
-          <div className="lg:col-span-8 bg-white rounded-3xl p-8 lg:p-10 border border-gray-200 shadow-sm relative">
-            <div className="flex items-center justify-between border-b border-gray-200 pb-5 mb-8 font-mono text-xs text-[#2D7A82]">
-              <span className="flex items-center gap-2 font-bold tracking-[0.1em]">
-                <span className="w-2 h-2 rounded-full bg-[#2D7A82] animate-pulse" /> SPECS HUD &middot; ACTIVE INSPECTION
-              </span>
-              <span className="text-gray-400">IS 1239 / IS 3589 / IS 4923</span>
-            </div>
-
-            <AnimatePresence mode="wait">
-              {tab === "mechanical" && (
-                <motion.div
-                  key="mechanical"
-                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -16, scale: 0.98 }}
-                  transition={{ duration: 0.25, ease: easeOut }}
-                  className="space-y-8"
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 text-center">
-                    {[
-                      { label: "TENSILE STRENGTH", val: "≥ 415", unit: "MPa", pct: 85, tag: "IS 1239 / 3589", icon: "⚡" },
-                      { label: "YIELD STRENGTH", val: "≥ 240", unit: "MPa", pct: 75, tag: "YS Minimum", icon: "🔩" },
-                      { label: "ELONGATION", val: "≥ 21", unit: "%", pct: 90, tag: "High Ductility", icon: "📈" },
-                    ].map((g, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: i * 0.08 }}
-                        className="group p-6 rounded-2xl bg-[#FAFAF8] border border-gray-200 flex flex-col items-center hover:border-[#2D7A82]/50 hover:shadow-md transition-all duration-300"
-                      >
-                        <div className="relative w-28 h-28 mb-4 flex items-center justify-center">
-                          <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                            <path strokeWidth="2.5" stroke="oklch(0.91 0.004 80)" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <motion.path
-                              initial={{ strokeDasharray: "0, 100" }}
-                              animate={{ strokeDasharray: `${g.pct}, 100` }}
-                              transition={{ duration: 0.8, delay: 0.2 + i * 0.08, ease: easeOut }}
-                              strokeWidth="3" strokeLinecap="round" stroke="#2D7A82" fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                          </svg>
-                          <span className="absolute font-display text-2xl font-bold text-[#0A1628]">{g.val}</span>
-                        </div>
-                        <span className="text-[10px] font-mono text-[#2D7A82] font-bold uppercase tracking-[0.15em]">{g.label}</span>
-                        <span className="text-xs text-gray-400 font-mono mt-1.5">{g.unit} &middot; {g.tag}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-                    {[
-                      { label: "HYDROSTATIC PRESSURE TEST", val: "5 MPa", desc: "100% Factory verified under pressure up to 5 MPa before dispatch." },
-                      { label: "HARDNESS RATING", val: "≤ 85 HRB", desc: "Rockwell Hardness for easy threading and site welding operations." },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: 0.3 + i * 0.1 }}
-                        className="group p-5 rounded-xl bg-[#FAFAF8] border border-gray-200 hover:border-[#2D7A82]/40 hover:shadow-sm transition-all duration-300"
-                      >
-                        <span className="text-[#2D7A82] font-bold font-mono text-xs block mb-1">{item.label}</span>
-                        <span className="font-display text-xl font-bold text-[#0A1628] block mb-1">{item.val}</span>
-                        <span className="text-gray-500 text-xs leading-relaxed">{item.desc}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {tab === "chemical" && (
-                <motion.div
-                  key="chemical"
-                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -16, scale: 0.98 }}
-                  transition={{ duration: 0.25, ease: easeOut }}
-                  className="flex flex-col gap-6"
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 flex-1">
-                    {[
-                      { elem: "Carbon (C)", limit: "≤ 0.25%", desc: "Maximum carbon bound for optimal weldability and tensile ductility." },
-                      { elem: "Manganese (Mn)", limit: "≤ 0.60%", desc: "Improves structural toughness and hardness penetration depth." },
-                      { elem: "Sulfur (S)", limit: "≤ 0.05%", desc: "Controlled low sulfur content to prevent hot shortness during welding." },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: i * 0.1 }}
-                        className="group p-6 rounded-2xl bg-gradient-to-br from-[#FAFAF8] to-white border border-gray-200 hover:border-[#2D7A82]/50 hover:shadow-md transition-all duration-300 flex flex-col"
-                      >
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="text-[10px] font-mono text-[#2D7A82] font-bold uppercase tracking-[0.15em]">{item.elem}</span>
-                          <span className="text-[10px] font-mono text-gray-300 font-bold">0{i + 1}</span>
-                        </div>
-                        <p className="font-display text-4xl font-bold text-[#0A1628] mb-3">{item.limit}</p>
-                        <div className="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: i === 0 ? 25 : i === 1 ? 60 : 5 }}
-                            transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: easeOut }}
-                            className="h-full rounded-full bg-[#2D7A82]"
-                          />
-                        </div>
-                        <p className="text-gray-500 text-xs leading-relaxed mt-3 flex-1">{item.desc}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-                    {[
-                      { label: "PHOSPHORUS (P)", val: "≤ 0.05%", desc: "Low phosphorus content ensures crack resistance during cold bending." },
-                      { label: "SILICON (Si)", val: "≤ 0.40%", desc: "Added as deoxidizer; improves strength without reducing ductility." },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: 0.3 + i * 0.1 }}
-                        className="group p-5 rounded-xl bg-[#FAFAF8] border border-gray-200 hover:border-[#2D7A82]/40 hover:shadow-sm transition-all duration-300"
-                      >
-                        <span className="text-[#2D7A82] font-bold font-mono text-xs block mb-1">{item.label}</span>
-                        <span className="font-display text-xl font-bold text-[#0A1628] block mb-1">{item.val}</span>
-                        <span className="text-gray-500 text-xs leading-relaxed">{item.desc}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {tab === "dimensional" && (
-                <motion.div
-                  key="dimensional"
-                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -16, scale: 0.98 }}
-                  transition={{ duration: 0.25, ease: easeOut }}
-                  className="flex flex-col gap-6"
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 flex-1">
-                    {[
-                      { metric: "Wall Thickness", tol: "±10%", std: "IS 1239 / IS 3589", method: "Ultrasonic Gauge", band: 36, desc: "Measured with digital ultrasonic wall thickness gauge to 0.01 mm resolution." },
-                      { metric: "Outside Diameter", tol: "±1%", std: "IS 3589 Standard", method: "Vernier Calipers", band: 8, desc: "Cross-checked across pipe ends with calibrated Vernier calipers." },
-                      { metric: "Standard Length", tol: "±0.5m", std: "Custom Cutting", method: "Tape Measure", band: 28, desc: "Supplied in standard 6m / 12m random lengths within cutting tolerance." },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: i * 0.1 }}
-                        className="group p-6 rounded-2xl bg-[#FAFAF8] border border-gray-200 hover:border-[#2D7A82]/50 hover:shadow-md transition-all duration-300 flex flex-col"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-[10px] font-mono text-[#2D7A82] font-bold uppercase tracking-[0.15em]">{item.metric}</span>
-                          <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#2D7A82]/10 text-[#2D7A82] border border-[#2D7A82]/20">{item.std}</span>
-                        </div>
-                        <p className="font-display text-4xl font-bold text-[#0A1628] mb-1">{item.tol}</p>
-                        <div className="relative h-10 mt-2 mb-2">
-                          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gray-300" />
-                          <motion.div
-                            initial={{ width: 0, left: "50%" }}
-                            animate={{ width: `${item.band}%`, left: `${50 - item.band / 2}%` }}
-                            transition={{ duration: 0.6, delay: 0.25 + i * 0.1, ease: easeOut }}
-                            className="absolute top-1/2 -translate-y-1/2 h-3 rounded-sm border border-[#2D7A82]/40 bg-[#2D7A82]/10 flex items-center justify-center overflow-hidden"
-                          >
-                            <motion.div
-                              initial={{ scaleX: 0 }}
-                              animate={{ scaleX: 1 }}
-                              transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
-                              className="w-full h-full bg-[#2D7A82]/10 origin-left"
-                            />
-                          </motion.div>
-                          <motion.div
-                            initial={{ scaleY: 0 }}
-                            animate={{ scaleY: 1 }}
-                            transition={{ duration: 0.3, delay: 0.4 + i * 0.1 }}
-                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-5 bg-[#2D7A82] rounded-full origin-center"
-                          />
-                          <div className="absolute left-0 top-full text-[8px] font-mono text-gray-400 -translate-y-1">-{item.tol.replace("±", "")}</div>
-                          <div className="absolute left-1/2 top-full -translate-x-1/2 text-[8px] font-mono text-[#2D7A82] font-bold -translate-y-1">NOM</div>
-                          <div className="absolute right-0 top-full text-[8px] font-mono text-gray-400 -translate-y-1">+{item.tol.replace("±", "")}</div>
-                        </div>
-                        <span className="text-[9px] font-mono text-gray-400 block mb-2">&middot; {item.method}</span>
-                        <p className="text-gray-500 text-xs leading-relaxed flex-1">{item.desc}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-                    {[
-                      { label: "OVALITY TOLERANCE", val: "≤ 0.5 mm", desc: "Cross-section deviation checked across multiple axes per IS 3589." },
-                      { label: "STRAIGHTNESS", val: "≤ 0.15% of L", desc: "Maximum bow per unit length verified on straightening beds." },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: 0.3 + i * 0.1 }}
-                        className="group p-5 rounded-xl bg-[#FAFAF8] border border-gray-200 hover:border-[#2D7A82]/40 hover:shadow-sm transition-all duration-300"
-                      >
-                        <span className="text-[#2D7A82] font-bold font-mono text-xs block mb-1">{item.label}</span>
-                        <span className="font-display text-xl font-bold text-[#0A1628] block mb-1">{item.val}</span>
-                        <span className="text-gray-500 text-xs leading-relaxed">{item.desc}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 8. JINDAL AUTHORIZATION ─── DARK */
+/* ─── 7. JINDAL AUTHORIZATION ─── DARK */
 function JindalSection({ onOpenCert }: { onOpenCert: () => void }) {
   return (
     <section className="py-24 lg:py-32 bg-[#0A1628] text-white relative overflow-hidden">
@@ -1195,139 +876,12 @@ function JindalSection({ onOpenCert }: { onOpenCert: () => void }) {
   );
 }
 
-/* ─── 9. QUALITY ASSURANCE PROCESS ─── LIGHT */
-function QAProcess() {
-  const stages = [
-    {
-      icon: <Eye size={20} />,
-      title: "Inward Material Inspection",
-      desc: "Every incoming pipe bundle is verified against heat batch numbers and mill test certificates before acceptance.",
-      checks: ["Visual Surface Check", "Grade & Heat Match", "Mill Certificate Audit"],
-    },
-    {
-      icon: <Ruler size={20} />,
-      title: "Dimensional Verification",
-      desc: "OD, wall thickness, and length sampled per IS 1239 / IS 3589 using calibrated digital gauges.",
-      checks: ["OD & ID Caliper Check", "Wall Thickness Scan", "Length Confirmation"],
-    },
-    {
-      icon: <Gauge size={20} />,
-      title: "Mechanical & Hydrostatic",
-      desc: "Tensile strength, yield point, and hydrostatic pressure tested on random samples from each heat batch.",
-      checks: ["Tensile & Yield Test", "Hydrostatic 5 MPa", "Hardness ≤ 85 HRB"],
-    },
-    {
-      icon: <ShieldCheck size={20} />,
-      title: "Final Dispatch QC",
-      desc: "Surface finish, end protection, and stenciling verified before crane-assisted loading.",
-      checks: ["Surface & End Finish", "Pipe Stenciling Check", "Loading Inspection"],
-    },
-  ];
-
-  return (
-    <section className="py-28 lg:py-36 bg-[#FAFAF8] relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(#0A1628_1px,transparent_1px)] [background-size:18px_18px]" />
-      <div className="absolute top-20 right-20 w-[400px] h-[400px] bg-gradient-to-bl from-[#2D7A82]/[0.05] to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 left-20 w-[300px] h-[300px] bg-gradient-to-tr from-[#0A1628]/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-        <SectionLabel text="Quality Protocol" />
-        <FadeUp>
-          <div className="mb-14 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#0A1628] font-semibold leading-[0.95] tracking-tight">
-                4-Stage Quality{" "}
-                <span className="text-[#2D7A82]">Assurance Process</span>
-              </h2>
-              <p className="text-gray-500 text-base mt-5 max-w-lg leading-relaxed">
-                Every pipe consignment passes through a rigorous four-stage inspection protocol before it is cleared for dispatch from our Ahmedabad stock.
-              </p>
-              <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-[#2D7A82]/20 bg-[#2D7A82]/10 px-5 py-3 font-mono text-xs font-bold text-[#2D7A82]">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#2D7A82]" />
-                IS 1239 / IS 3589 Compliant
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 shadow-lg lg:col-span-5 lg:h-52">
-              <img src={IMG.erwPipes} alt="Quality-checked ERW pipe stock" className="h-full min-h-[180px] w-full object-cover object-center lg:min-h-0" onError={(e) => handleImgError(e, "erw")} />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628]/50 to-transparent" />
-              <p className="absolute bottom-4 left-4 max-w-[200px] font-mono text-[10px] font-bold uppercase leading-relaxed tracking-[0.18em] text-white/90">
-                Batch-verified before dispatch
-              </p>
-            </div>
-          </div>
-        </FadeUp>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {stages.map((stage, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.12, ease: easeOut }}
-              whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className="group relative bg-white rounded-2xl p-6 lg:p-7 border border-gray-200 hover:border-[#2D7A82]/40 hover:shadow-[0_8px_40px_rgba(45,122,130,0.1)] transition-all duration-500 flex flex-col"
-            >
-              {/* Connector line between cards */}
-              {i < 3 && (
-                <div className="hidden lg:block absolute top-10 -right-3 z-20">
-                  <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                    <path d="M0 6h16M16 6l-5-4.5M16 6l-5 4.5" stroke="#2D7A82" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
-                  </svg>
-                </div>
-              )}
-
-              {/* Step number */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="w-10 h-10 rounded-xl bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] font-mono text-sm font-bold shrink-0 group-hover:bg-[#2D7A82] group-hover:text-white group-hover:border-[#2D7A82] group-hover:shadow-lg group-hover:shadow-[#2D7A82]/30 transition-all duration-300">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <span className="text-[32px] font-display font-bold text-gray-100 group-hover:text-gray-200 select-none leading-none -mr-1 transition-colors duration-300">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-
-              {/* Icon */}
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#2D7A82]/10 to-[#2D7A82]/5 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] mb-5 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,122,130,0.2)] transition-all duration-300">
-                {stage.icon}
-              </div>
-
-              {/* Title */}
-              <h3 className="font-display text-lg font-semibold text-[#0A1628] mb-3 leading-snug group-hover:text-[#2D7A82] transition-colors duration-300">{stage.title}</h3>
-
-              {/* Description */}
-              <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{stage.desc}</p>
-
-              {/* Checkpoints */}
-              <div className="space-y-2 mt-auto pt-4 border-t border-gray-100 group-hover:border-[#2D7A82]/10 transition-colors duration-300">
-                {stage.checks.map((check, j) => (
-                  <motion.div
-                    key={j}
-                    initial={{ opacity: 0, x: -8 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.12 + j * 0.08 }}
-                    className="flex items-center gap-2.5"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2D7A82] shrink-0 group-hover:scale-125 transition-transform duration-300" />
-                    <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-700 transition-colors duration-300">{check}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 10. FAQ ─── DARK */
+/* ─── 8. FAQ ─── DARK */
 function FAQSection() {
   const faqs = [
     { q: "Is Navkar Tubes an authorized Jindal pipes dealer?", a: "Yes. Navkar Tubes & Tools is an authorized channel partner of Jindal (India) Limited for MS ERW black pipes and GI hollow sections, operating from Ahmedabad since 1995." },
     { q: "Which pipe sizes and products do you stock?", a: "We stock MS ERW black pipes from 15 MM to 500 MM OD, GI square & rectangular hollow sections (SHS/RHS), and Ceramic Lancing pipes. Full range available at our Ahmedabad yards." },
-    { q: "Where is Navkar Tubes located?", a: "Navkar Tubes & Tools operates from Ahmedabad, Gujarat, with stock yards in the industrial areas. We also serve nationwide project logistics." },
+    { q: "Where is Navkar Tubes located?", a: "Our stock yard is at Plot No. 1426/B, Trikampura Patiya, Phase-3, GIDC Vatva, Ahmedabad 382445. The sales office is at No. 8, Jaymangal Estate, Near Gujarat Bottling, Rakhial, Ahmedabad 380023. We also handle nationwide project logistics." },
     { q: "How do I get a free quotation for MS pipes?", a: "Request a quote by clicking 'GET QUOTE' on the website, calling +91 9601702883 or emailing navkartube@gmail.com. Specify OD, wall thickness, length, and quantity." },
     { q: "Do you supply for industrial projects?", a: "Absolutely. We supply genuine Jindal ERW pipes and hollow sections for government, public, and private sector projects across India, with crane-assisted loading and project logistics support." },
   ];
@@ -1453,9 +1007,11 @@ function LocationSection() {
                     <MapPin size={20} />
                   </div>
                   <div className="flex-1">
-                    <p className="text-[10px] font-mono font-bold text-[#2D7A82] uppercase tracking-[0.2em] mb-1">Stocking Hub 1 · 10,000+ MT</p>
-                    <p className="font-display text-xl text-[#0A1628] font-semibold mb-1">Ahmedabad Industrial Yards</p>
-                    <p className="text-gray-500 text-sm mb-3">GIDC &amp; Industrial Estate Areas, Ahmedabad, Gujarat</p>
+                    <p className="text-[10px] font-mono font-bold text-[#2D7A82] uppercase tracking-[0.2em] mb-1">Stocking Hub 1 · 1,000+ MT</p>
+                    <p className="font-display text-xl text-[#0A1628] font-semibold mb-1">GIDC Vatva Stock Yard</p>
+                    <p className="text-gray-500 text-sm mb-3">
+                      {VATVA_YARD.lines[0]}, {VATVA_YARD.lines[1]}, {VATVA_YARD.lines[2]}
+                    </p>
                     <div className="flex items-center gap-4">
                       <a href="tel:+919601702883" className="inline-flex items-center gap-1.5 text-[#2D7A82] text-sm font-mono font-bold hover:underline">
                         +91 9601702883
@@ -1481,10 +1037,12 @@ function LocationSection() {
                   </div>
                   <div className="flex-1">
                     <p className="text-[10px] font-mono font-bold text-[#2D7A82] uppercase tracking-[0.2em] mb-1">Manufacturing Plant · Est. 2018</p>
-                    <p className="font-display text-xl text-[#0A1628] font-semibold mb-1">Ceramic Lancing Plant</p>
-                    <p className="text-gray-500 text-sm mb-3">Ahmedabad Manufacturing Facility — up to 1650°C thermal limit</p>
+                    <p className="font-display text-xl text-[#0A1628] font-semibold mb-1">Ceramic Lancing · Rakhial</p>
+                    <p className="text-gray-500 text-sm mb-3">
+                      {RAKHIAL_OFFICE.lines[0]}, {RAKHIAL_OFFICE.lines[1]}, {RAKHIAL_OFFICE.lines[2]}
+                    </p>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2D7A82]/10 border border-[#2D7A82]/20 text-[10px] font-mono font-bold text-[#2D7A82] uppercase">
-                      3/8" – 1.5" NB Pipes
+                      6mm – 48.3 mm Pipes
                     </span>
                   </div>
                 </div>
@@ -1692,9 +1250,7 @@ export default function Home() {
       <ProductsSection />
       <WhyNavkarSection />
       <IndustrySection onRequestQuote={() => handleOpenQuote()} />
-      <TechnicalDashboard />
       <JindalSection onOpenCert={() => setShowCert(true)} />
-      <QAProcess />
       <FAQSection />
       <LocationSection />
       <CTASection onRequestQuote={() => handleOpenQuote()} />

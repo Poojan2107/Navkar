@@ -7,6 +7,7 @@ import { isValidEmail, isValidIndianPhone } from "@/lib/validation";
 import PageShell from "@/components/PageShell";
 import { GoogleMapEmbed, NAVKAR_MAP_LINK } from "@/components/Map";
 import { FadeUp } from "@/hooks/useScrollAnimation";
+import { VATVA_YARD, RAKHIAL_OFFICE, mapsSearchUrl } from "@/lib/company";
 
 function SectionLabel({ text }: { text: string }) {
   return (
@@ -183,29 +184,63 @@ export default function Contact() {
                 </div>
 
                 {/* Addresses */}
-                <div className="p-6 bg-white rounded-3xl border border-gray-200 shadow-sm flex items-start gap-4 hover:border-[#2D7A82] transition-colors">
+                <a
+                  href={mapsSearchUrl(VATVA_YARD)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-6 bg-white rounded-3xl border border-gray-200 shadow-sm flex items-start gap-4 hover:border-[#2D7A82] transition-colors"
+                >
                   <div className="w-12 h-12 rounded-2xl bg-[#2D7A82]/10 text-[#2D7A82] flex items-center justify-center shrink-0">
                     <MapPin size={22} />
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider block mb-1">NAVKAR TUBES & TOOLS</span>
-                    <p className="font-display text-base text-[#0A1628] font-semibold">
-                      Ahmedabad Industrial Yards, Gujarat
+                    <span className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider block mb-1">
+                      {VATVA_YARD.role}
+                    </span>
+                    <p className="font-display text-base text-[#0A1628] font-semibold mb-1">
+                      GIDC Vatva Stock Yard
                     </p>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {VATVA_YARD.lines[0]}
+                      <br />
+                      {VATVA_YARD.lines[1]}
+                      <br />
+                      {VATVA_YARD.lines[2]}
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-xs text-[#2D7A82] font-semibold mt-2">
+                      Get directions <ExternalLink size={12} />
+                    </span>
                   </div>
-                </div>
+                </a>
 
-                <div className="p-6 bg-white rounded-3xl border border-gray-200 shadow-sm flex items-start gap-4 hover:border-[#2D7A82] transition-colors">
+                <a
+                  href={mapsSearchUrl(RAKHIAL_OFFICE)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-6 bg-white rounded-3xl border border-gray-200 shadow-sm flex items-start gap-4 hover:border-[#2D7A82] transition-colors"
+                >
                   <div className="w-12 h-12 rounded-2xl bg-[#2D7A82]/10 text-[#2D7A82] flex items-center justify-center shrink-0">
                     <MapPin size={22} />
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider block mb-1">CERAMIC LANCING PLANT</span>
-                    <p className="font-display text-base text-[#0A1628] font-semibold">
-                      Ahmedabad Manufacturing Facility, Gujarat
+                    <span className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider block mb-1">
+                      {RAKHIAL_OFFICE.role}
+                    </span>
+                    <p className="font-display text-base text-[#0A1628] font-semibold mb-1">
+                      Rakhial Office
                     </p>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {RAKHIAL_OFFICE.lines[0]}
+                      <br />
+                      {RAKHIAL_OFFICE.lines[1]}
+                      <br />
+                      {RAKHIAL_OFFICE.lines[2]}
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-xs text-[#2D7A82] font-semibold mt-2">
+                      Get directions <ExternalLink size={12} />
+                    </span>
                   </div>
-                </div>
+                </a>
               </div>
 
               {/* External Profile Links */}
@@ -340,8 +375,11 @@ export default function Contact() {
                   <h3 className="font-display text-3xl text-white mt-4 mb-3 font-semibold">
                     Navkar Tubes & Tools
                   </h3>
+                  <p className="text-white/80 text-sm leading-relaxed mb-2">
+                    {VATVA_YARD.lines.join(", ")}
+                  </p>
                   <p className="text-white/70 text-xs sm:text-sm leading-relaxed mb-6">
-                    Direct location map pin for <strong>Navkar Tubes & Tools</strong> in Ahmedabad, Gujarat. Visit our stocking office for physical pipe inspection, hydrostatic testing verification, and immediate truck loading.
+                    Direct map pin for our GIDC Vatva stock yard. Visit for physical pipe inspection, mill test certificate verification, and same-day truck loading. Sales office also at Jaymangal Estate, Rakhial.
                   </p>
 
                   <a

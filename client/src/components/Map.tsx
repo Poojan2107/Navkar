@@ -1,10 +1,14 @@
 import { cn } from "@/lib/utils";
 import { ExternalLink, MapPin } from "lucide-react";
 
+import { PRIMARY_LOCATION, mapsSearchUrl } from "@/lib/company";
+
 /** Shared map config — used on Home, Contact, and anywhere else we show the yard. */
-export const NAVKAR_MAP_QUERY = "Navkar+Tubes+%26+Tools,+Ahmedabad,+Gujarat";
-export const NAVKAR_MAP_LINK = "https://maps.google.com/?q=Navkar+Tubes+%26+Tools+Ahmedabad+Gujarat";
-export const NAVKAR_MAP_CENTER = { lat: 22.9734, lng: 72.6012 };
+export const NAVKAR_MAP_QUERY = encodeURIComponent(
+  `${PRIMARY_LOCATION.name}, ${PRIMARY_LOCATION.street}, ${PRIMARY_LOCATION.locality}`
+);
+export const NAVKAR_MAP_LINK = mapsSearchUrl(PRIMARY_LOCATION);
+export const NAVKAR_MAP_CENTER = { lat: PRIMARY_LOCATION.lat, lng: PRIMARY_LOCATION.lng };
 
 function buildEmbedUrl(zoom = 16) {
   const { lat, lng } = NAVKAR_MAP_CENTER;

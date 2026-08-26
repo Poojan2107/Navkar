@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { X, Send, ShieldCheck, CheckCircle2, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { submitInquiry } from "@/lib/submitInquiry";
 import { isValidEmail, isValidIndianPhone } from "@/lib/validation";
@@ -12,13 +12,27 @@ interface QuoteModalProps {
   defaultSpec?: { od?: number; wall?: number; length?: number };
 }
 
-const PRODUCT_CATEGORIES = [
+export const PRODUCT_CATEGORIES = [
   "MS ERW Black Pipes (15mm - 500mm)",
+  "Ceramic Lancing Pipes",
+  "Galvanized GI Pipes (15mm - 150mm)",
   "GI & MS Hollow Sections (SHS/RHS)",
   "Large OD Spiral Welded Pipes",
-  "Seamless Pipes & Tubes",
-  "MS Fittings & Flanges",
+  "Seamless Hydraulic Tubes",
+  "MS Forged Flanges",
+  "Butt-Weld Fittings",
 ];
+
+export const QUOTE_CATEGORY_BY_GROUP: Record<string, string> = {
+  erw: "MS ERW Black Pipes (15mm - 500mm)",
+  lancing: "Ceramic Lancing Pipes",
+  gi: "Galvanized GI Pipes (15mm - 150mm)",
+  hollow: "GI & MS Hollow Sections (SHS/RHS)",
+  spiral: "Large OD Spiral Welded Pipes",
+  hydraulic: "Seamless Hydraulic Tubes",
+  flanges: "MS Forged Flanges",
+  fittings: "Butt-Weld Fittings",
+};
 
 export default function QuoteModal({
   isOpen,
@@ -27,6 +41,19 @@ export default function QuoteModal({
   defaultSpec,
 }: QuoteModalProps) {
   const [category, setCategory] = useState(defaultCategory);
+
+  const categoryOptions = useMemo(() => {
+    if (defaultCategory && !PRODUCT_CATEGORIES.includes(defaultCategory)) {
+      return [defaultCategory, ...PRODUCT_CATEGORIES];
+    }
+    return PRODUCT_CATEGORIES;
+  }, [defaultCategory]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setCategory(defaultCategory);
+    }
+  }, [isOpen, defaultCategory]);
   const [od, setOd] = useState(defaultSpec?.od ? String(defaultSpec.od) : "");
   const [thickness, setThickness] = useState(defaultSpec?.wall ? String(defaultSpec.wall) : "");
   const [quantity, setQuantity] = useState("");
@@ -146,21 +173,28 @@ export default function QuoteModal({
               <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
                 {/* Product Category Selection */}
                 <div>
-                  <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                  <label htmlFor="quote-product-category" className="block text-xs font-mono font-semibold uppercase tracking-wider text-gray-500 mb-2">
                     Product Category *
                   </label>
-                  <select
-                    required
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 bg-[#FAFAF8] border border-gray-200 rounded-xl text-sm font-sans text-[#0A1628] focus:border-[#2D7A82] focus:outline-none transition-colors"
-                  >
-                    {PRODUCT_CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="quote-product-category"
+                      required
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full appearance-none px-4 py-3 pr-10 bg-[#FAFAF8] border border-gray-200 rounded-xl text-sm font-sans text-[#0A1628] focus:border-[#2D7A82] focus:outline-none transition-colors"
+                    >
+                      {categoryOptions.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={16}
+                      className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                    />
+                  </div>
                 </div>
 
                 {/* Specifications Grid */}

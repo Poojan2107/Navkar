@@ -7,6 +7,7 @@ import ScrollTimeline from "@/components/ScrollTimeline";
 import { FadeUp } from "@/hooks/useScrollAnimation";
 import { handleImgError } from "@/lib/assetFallback";
 import { IMG } from "@/asset-map";
+import { VATVA_YARD, RAKHIAL_OFFICE } from "@/lib/company";
 
 function SectionLabel({ text, dark = false }: { text: string; dark?: boolean }) {
   return (
@@ -30,7 +31,7 @@ export default function About() {
     {
       id: "yard1",
       label: "Ahmedabad Stock Yard",
-      title: "10,000+ MT Ready Stock Capacity",
+      title: "1,000+ MT Ready Stock Capacity",
       desc: "Equipped with heavy-duty overhead gantry cranes for instant trailer loading of MS ERW black and GI pipes.",
       img: IMG.facility,
       badge: "AHMEDABAD STOCK YARD"
@@ -80,8 +81,8 @@ export default function About() {
       year: "2012",
       title: "Stock Yard Capacity Expansion",
       subtitle: "Heavy Logistics Hub",
-      desc: "Commissioned heavy-duty stock yard infrastructure in Ahmedabad equipped with overhead gantry cranes, expanding ready stock capacity to over 10,000 Metric Tons.",
-      metric: "10,000+ MT Capacity"
+      desc: "Commissioned heavy-duty stock yard infrastructure in Ahmedabad equipped with overhead gantry cranes, expanding ready stock capacity to over 1,000 Metric Tons.",
+      metric: "1,000+ MT Capacity"
     },
     {
       year: "2018",
@@ -171,7 +172,7 @@ export default function About() {
                   <p className="text-[11px] font-mono text-gray-500 uppercase mt-1 font-semibold">Active Corporate Clients</p>
                 </div>
                 <div>
-                  <p className="font-display text-3xl sm:text-4xl text-[#2D7A82] font-bold">10K+</p>
+                  <p className="font-display text-3xl sm:text-4xl text-[#2D7A82] font-bold">1K+</p>
                   <p className="text-[11px] font-mono text-gray-500 uppercase mt-1 font-semibold">MT Ready Stock</p>
                 </div>
               </div>
@@ -451,7 +452,7 @@ export default function About() {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-white/70 uppercase block">PIPE SIZES</span>
-                  <span className="font-display text-2xl text-white font-bold">3/8" - 1.5" NB</span>
+                  <span className="font-display text-2xl text-white font-bold">6mm – 48.3 mm</span>
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-white/70 uppercase block">QUALITY COMPLIANCE</span>
@@ -468,14 +469,14 @@ export default function About() {
                   <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-[#2D7A82] uppercase bg-[#2D7A82]/20 px-3 py-1 rounded-full border border-[#2D7A82]/30">
                     STOCKING HUB 1
                   </span>
-                  <span className="text-xs font-mono text-[#2D7A82] font-bold">10,000+ MT</span>
+                  <span className="text-xs font-mono text-[#2D7A82] font-bold">1,000+ MT</span>
                 </div>
-                <h3 className="font-display text-2xl text-white mb-2 font-semibold">Ahmedabad Central Yard</h3>
+                <h3 className="font-display text-2xl text-white mb-2 font-semibold">GIDC Vatva Stock Yard</h3>
                 <p className="text-white/70 text-xs leading-relaxed mb-4">
                   Heavy-duty stock yard equipped with overhead gantry cranes, holding ready stocks of Jindal MS ERW black & GI pipes (15mm to 500mm OD).
                 </p>
-                <div className="text-xs font-mono text-white/50 flex items-center gap-1.5">
-                  <MapPin size={14} className="text-[#2D7A82]" /> Ahmedabad, Gujarat
+                <div className="text-xs font-mono text-white/50 flex items-start gap-1.5">
+                  <MapPin size={14} className="text-[#2D7A82] shrink-0 mt-0.5" /> {VATVA_YARD.lines.join(", ")}
                 </div>
               </div>
 
@@ -487,12 +488,12 @@ export default function About() {
                   </span>
                   <span className="text-xs font-mono text-[#2D7A82] font-bold">Rapid Logistics</span>
                 </div>
-                <h3 className="font-display text-2xl text-white mb-2 font-semibold">Ahmedabad Dispatch Hub</h3>
+                <h3 className="font-display text-2xl text-white mb-2 font-semibold">Rakhial Office</h3>
                 <p className="text-white/70 text-xs leading-relaxed mb-4">
-                  Storage facility handling large diameter spiral pipes, piling tubes, square/rectangular hollow sections, and fast trailer dispatches.
+                  Sales and ceramic lancing manufacturing office for coated lancing pipes, large-diameter stock coordination, and project dispatches.
                 </p>
-                <div className="text-xs font-mono text-white/50 flex items-center gap-1.5">
-                  <MapPin size={14} className="text-[#2D7A82]" /> Ahmedabad, Gujarat
+                <div className="text-xs font-mono text-white/50 flex items-start gap-1.5">
+                  <MapPin size={14} className="text-[#2D7A82] shrink-0 mt-0.5" /> {RAKHIAL_OFFICE.lines.join(", ")}
                 </div>
               </div>
             </div>

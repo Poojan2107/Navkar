@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Play, Video, Image as ImageIcon, MapPin, ArrowRight, ShieldCheck, Search, Sparkles, Layers, Eye } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Play, Video, Image as ImageIcon, ArrowRight, Sparkles, Eye } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import QuoteModal from "@/components/QuoteModal";
 import { FadeUp } from "@/hooks/useScrollAnimation";
@@ -22,7 +22,7 @@ function SectionLabel({ text }: { text: string }) {
 
 export default function Gallery() {
   const [selected, setSelected] = useState<number | null>(null);
-  const [showcaseMode, setShowcaseMode] = useState<"photos" | "video" | "inspection">("photos");
+  const [showcaseMode, setShowcaseMode] = useState<"photos" | "video">("photos");
   const [filter, setFilter] = useState<string>("all");
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteBatch, setQuoteBatch] = useState("");
@@ -40,34 +40,7 @@ export default function Gallery() {
     { src: IMG.yard2, category: "yard", title: "Ahmedabad Dispatch Hub", desc: "Ready dispatch stock of GI square and rectangular hollow sections." },
     { src: IMG.yard03, category: "yard", title: "Spiral Pipe Inventory", desc: "Large diameter spiral welded pipes stored for water pipeline projects." },
     { src: IMG.yard04, category: "yard", title: "Jindal Certified Bundles", desc: "Original mill strapped pipe bundles awaiting trailer dispatch." },
-    { src: IMG.yard22, category: "yard", title: "Ceramic Lancing Pipe Batch", desc: "Manufactured Ceramic Coated Lancing Pipes packaged for refinery delivery." },
-  ];
-
-  const inspectionItems = [
-    {
-      title: "Embossed Jindal & Asian Brand Stamp",
-      desc: "Physical mill brand mark embossed every 1m on genuine pipe surface.",
-      img: IMG.yard04,
-      tag: "MILL EMBOSSING"
-    },
-    {
-      title: "Stenciled Heat & Batch Code",
-      desc: "Traceable heat number HT-202607 and IS standard stenciling.",
-      img: IMG.yard03,
-      tag: "HEAT NO. STENCIL"
-    },
-    {
-      title: "End Caps & Beveled Edges",
-      desc: "Protective plastic end caps and precision 30° beveling for welding.",
-      img: IMG.yard22,
-      tag: "PRECISION BEVELING"
-    },
-    {
-      title: "Refractory Ceramic Coating",
-      desc: "In-house ceramic and calorized coating for high thermal resistance.",
-      img: IMG.lancingPipes,
-      tag: "LANCING COATING"
-    }
+    { src: IMG.lancingPipes, category: "yard", title: "Ceramic Lancing Pipe Batch", desc: "Manufactured Ceramic Coated Lancing Pipes packaged for refinery delivery." },
   ];
 
   const filteredImages = filter === "all"
@@ -114,7 +87,7 @@ export default function Gallery() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-white/75 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Browse live photo galleries, video tours of our Ahmedabad stock facilities, and macro quality inspection showcases.
+            Browse live photo galleries and video tours of our Ahmedabad stock facilities.
           </motion.p>
         </div>
       </section>
@@ -126,7 +99,6 @@ export default function Gallery() {
             {[
               { id: "photos", label: `Dispatch & Export Media (${allImages.length})`, icon: <ImageIcon size={15} /> },
               { id: "video", label: "Live Yard Video Tour", icon: <Video size={15} /> },
-              { id: "inspection", label: "Quality & Macro Inspection", icon: <ShieldCheck size={15} /> },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -255,45 +227,6 @@ export default function Gallery() {
                   />
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* SHOWCASE MODE 3: QUALITY & MACRO INSPECTION */}
-      {showcaseMode === "inspection" && (
-        <section className="py-20 lg:py-28 bg-[#FAFAF8]">
-          <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <SectionLabel text="Physical Product Authenticity Showcase" />
-            <h2 className="font-display text-4xl text-[#0A1628] mb-4 font-semibold">
-              Quality Marks & Physical Pipe Inspection
-            </h2>
-            <p className="text-gray-500 text-sm max-w-2xl mb-12">
-              Every single pipe dispatched from Navkar Ahmedabad Yards undergoes strict physical inspection before customer loading.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {inspectionItems.map((item, idx) => (
-                <div key={idx} className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6 items-center">
-                  <div className="w-full md:w-48 aspect-square rounded-2xl overflow-hidden bg-gray-900 flex-shrink-0">
-                    <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#2D7A82] uppercase bg-[#2D7A82]/10 px-3 py-1 rounded-full">
-                      {item.tag}
-                    </span>
-                    <h3 className="font-display text-xl text-[#0A1628] mt-3 mb-2 font-semibold">{item.title}</h3>
-                    <p className="text-gray-600 text-xs leading-relaxed mb-4">{item.desc}</p>
-                    
-                    <button
-                      onClick={() => handleInquireBatch(item.title)}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0A1628] hover:text-[#2D7A82] uppercase tracking-wider cursor-pointer"
-                    >
-                      INQUIRE PRODUCT SPECS →
-                    </button>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>

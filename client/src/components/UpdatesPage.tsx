@@ -16,7 +16,8 @@ import PageHero from "@/components/layout/PageHero";
 import SectionLabel from "@/components/layout/SectionLabel";
 import { handleImgError } from "@/lib/assetFallback";
 import { FadeUp } from "@/hooks/useScrollAnimation";
-import { generateYardUpdates, type DispatchUpdate } from "@/lib/updatesGenerator";
+import { loadYardUpdates, type DispatchUpdate } from "@/lib/updatesGenerator";
+import { getSiteUrl } from "@shared/yard-feed";
 
 export default function UpdatesPage() {
   const [updates, setUpdates] = useState<DispatchUpdate[]>([]);
@@ -25,7 +26,7 @@ export default function UpdatesPage() {
   const [quoteCategory, setQuoteCategory] = useState("General Stock Reservation");
 
   useEffect(() => {
-    setUpdates(generateYardUpdates());
+    void loadYardUpdates().then(setUpdates);
   }, []);
 
   const openQuoteForBatch = (batchInfo: string) => {
@@ -51,8 +52,22 @@ export default function UpdatesPage() {
     }, 0);
   }, [filteredUpdates]);
 
+  const origin = getSiteUrl();
+  const listJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Navkar Tubes yard dispatch updates",
+    itemListElement: updates.slice(0, 20).map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${origin}/updates/${item.id}`,
+      name: item.title,
+    })),
+  };
+
   return (
     <PageShell darkNav>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listJsonLd) }} />
       <PageHero
         badge={
           <span className="inline-flex items-center gap-2.5 rounded-full border border-[#2D7A82]/40 bg-[#2D7A82]/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#5EAEB3] shadow-sm">

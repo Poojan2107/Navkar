@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, FileText, Eye, Search, X, Layers, ExternalLink } from "lucide-react";
+import { ArrowRight, FileText, Eye, Search, X, Layers, ExternalLink, ChevronDown } from "lucide-react";
 import PageShell from "@/components/PageShell";
-import QuoteModal from "@/components/QuoteModal";
+import QuoteModal, { PRODUCT_CATEGORIES, QUOTE_CATEGORY_BY_GROUP } from "@/components/QuoteModal";
 import PipeCalculator from "@/components/PipeCalculator";
 import PageHero from "@/components/layout/PageHero";
 import SectionLabel from "@/components/layout/SectionLabel";
@@ -28,7 +28,7 @@ interface ProductItem {
 
 export default function ProductsPage() {
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [quoteCategory, setQuoteCategory] = useState("MS ERW Black Pipes");
+  const [quoteCategory, setQuoteCategory] = useState(PRODUCT_CATEGORIES[0]);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [inspectingProduct, setInspectingProduct] = useState<ProductItem | null>(null);
@@ -102,10 +102,11 @@ export default function ProductsPage() {
       specs: [
         { label: "Coating Type", value: "Refractory Ceramic / Calorized" },
         { label: "Thermal Limit", value: "Up to 1650°C" },
-        { label: "OD Range", value: "3/8\" to 1.5\" NB (17.2mm to 48.3mm)" },
+        { label: "OD Range", value: "6mm to 48.3 mm" },
         { label: "Application", value: "Steel Mills & Copper Refineries" },
       ],
       detailedTables: [
+        { parameter: "6mm OD Ceramic Lancing Pipe", range: "6mm OD", standard: "Navkar Spec 1650°C" },
         { parameter: "3/8\" NB Ceramic Lancing Pipe", range: "17.2mm OD x 2.3mm Wall", standard: "Navkar Spec 1650°C" },
         { parameter: "1/2\" NB Ceramic Lancing Pipe", range: "21.3mm OD x 2.8mm Wall", standard: "Navkar Spec 1650°C" },
         { parameter: "3/4\" NB Ceramic Lancing Pipe", range: "26.9mm OD x 3.2mm Wall", standard: "Navkar Spec 1650°C" },
@@ -124,8 +125,8 @@ export default function ProductsPage() {
       category: "Jindal & Asian Authorized Dealership",
       title: "Hot-Dip Galvanized (GI) Steel Pipes",
       subtitle: "Zinc Coated • IS 1239 / IS 4736",
-      img: IMG.yard03,
-      fallbackKey: "yard03",
+      img: IMG.yard04,
+      fallbackKey: "yard04",
       desc: "Direct mill-supplied Jindal & Asian GI steel pipes featuring uniform hot-dip zinc coating (min 550 g/m²) for outdoor water supply networks, greenhouse frames, solar mounting structures, and fire hydrants.",
       specs: [
         { label: "Zinc Coating", value: "≥ 550 g/m² (78 Microns)" },
@@ -297,42 +298,39 @@ export default function ProductsPage() {
                 </button>
               )}
             </div>
+
+            <div className="relative w-full sm:w-72">
+              <label htmlFor="product-category" className="sr-only">
+                Product category
+              </label>
+              <select
+                id="product-category"
+                value={activeCategory}
+                onChange={(e) => selectCategory(e.target.value)}
+                className="w-full appearance-none rounded-xl border border-white/15 bg-white/10 py-2.5 pl-4 pr-10 text-sm font-semibold text-white focus:border-[#2D7A82] focus:bg-white/15 focus:outline-none"
+              >
+                {productCategories.map((cat) => {
+                  const count =
+                    cat.id === "all"
+                      ? productsList.length
+                      : productsList.filter((p) => p.categoryGroup === cat.id).length;
+                  return (
+                    <option key={cat.id} value={cat.id} className="bg-[#0A1628] text-white">
+                      {cat.label} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+              <ChevronDown
+                size={16}
+                className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-white/50"
+              />
+            </div>
+
             <p className="shrink-0 text-xs font-mono text-white/50">
               <span className="font-bold text-[#5EAEB3]">{filteredProducts.length}</span>
               <span className="text-white/40"> / {productsList.length} products</span>
             </p>
-          </div>
-
-          <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-none">
-            {productCategories.map((cat) => {
-              const count =
-                cat.id === "all"
-                  ? productsList.length
-                  : productsList.filter((p) => p.categoryGroup === cat.id).length;
-              const active = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  title={cat.label}
-                  onClick={() => selectCategory(cat.id)}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
-                    active
-                      ? "bg-[#2D7A82] text-white shadow-md"
-                      : "bg-white/8 text-white/70 hover:bg-white/15 hover:text-white"
-                  }`}
-                >
-                  {cat.shortLabel}
-                  <span
-                    className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono font-bold ${
-                      active ? "bg-white/20" : "bg-white/10 text-white/50"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
           </div>
         </div>
       </section>
@@ -407,7 +405,7 @@ export default function ProductsPage() {
 
                         <div className="flex flex-wrap items-center gap-3">
                           <button
-                            onClick={() => openQuote(`${product.title} Inquiry`)}
+                            onClick={() => openQuote(QUOTE_CATEGORY_BY_GROUP[product.id] || product.title)}
                             className="inline-flex items-center gap-2 rounded-full bg-[#0A1628] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition-colors hover:bg-[#2D7A82]"
                           >
                             Request Quote <ArrowRight size={14} />
@@ -516,7 +514,7 @@ export default function ProductsPage() {
               <button
                 onClick={() => {
                   setInspectingProduct(null);
-                  openQuote(`${inspectingProduct.title} Detailed Order`);
+                  openQuote(QUOTE_CATEGORY_BY_GROUP[inspectingProduct.id] || inspectingProduct.title);
                 }}
                 className="px-8 py-3.5 bg-[#0A1628] hover:bg-[#2D7A82] text-white font-semibold text-xs tracking-wider uppercase rounded-full transition-colors cursor-pointer shadow-md"
               >
@@ -551,7 +549,12 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} defaultCategory={quoteCategory} />
+      <QuoteModal
+        key={quoteCategory}
+        isOpen={quoteOpen}
+        onClose={() => setQuoteOpen(false)}
+        defaultCategory={quoteCategory}
+      />
     </PageShell>
   );
 }

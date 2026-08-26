@@ -1,6 +1,7 @@
 import { IMG } from "@/asset-map";
 import { Linkedin, ExternalLink, Building2, ArrowUpToLine, Mail, Phone, MapPin, ShieldCheck, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { VATVA_YARD, RAKHIAL_OFFICE, mapsSearchUrl } from "@/lib/company";
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -138,15 +139,46 @@ export default function Footer() {
                   <p className="text-white/60 text-sm group-hover:text-white transition-colors">navkartube@gmail.com</p>
                 </div>
               </a>
-              <div className="flex items-start gap-3">
-                <span className="w-8 h-8 rounded-lg bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] shrink-0">
+              <a
+                href={mapsSearchUrl(VATVA_YARD)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
+              >
+                <span className="w-8 h-8 rounded-lg bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] shrink-0 group-hover:bg-[#2D7A82] group-hover:text-white transition-all duration-300">
                   <MapPin size={13} />
                 </span>
                 <div>
-                  <p className="text-white/30 text-[10px] font-mono uppercase tracking-wider mb-0.5">Address</p>
-                  <p className="text-white/60 text-sm">Ahmedabad, Gujarat</p>
+                  <p className="text-white/30 text-[10px] font-mono uppercase tracking-wider mb-0.5">Vatva Stock Yard</p>
+                  <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors">
+                    {VATVA_YARD.lines[0]}
+                    <br />
+                    {VATVA_YARD.lines[1]}
+                    <br />
+                    {VATVA_YARD.lines[2]}
+                  </p>
                 </div>
-              </div>
+              </a>
+              <a
+                href={mapsSearchUrl(RAKHIAL_OFFICE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
+              >
+                <span className="w-8 h-8 rounded-lg bg-[#2D7A82]/10 border border-[#2D7A82]/20 flex items-center justify-center text-[#2D7A82] shrink-0 group-hover:bg-[#2D7A82] group-hover:text-white transition-all duration-300">
+                  <MapPin size={13} />
+                </span>
+                <div>
+                  <p className="text-white/30 text-[10px] font-mono uppercase tracking-wider mb-0.5">Rakhial Office</p>
+                  <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors">
+                    {RAKHIAL_OFFICE.lines[0]}
+                    <br />
+                    {RAKHIAL_OFFICE.lines[1]}
+                    <br />
+                    {RAKHIAL_OFFICE.lines[2]}
+                  </p>
+                </div>
+              </a>
             </div>
 
             <div className="flex items-center gap-3 mt-6 pt-5 border-t border-white/[0.06]">

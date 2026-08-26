@@ -203,6 +203,66 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
+function json(res: import("http").ServerResponse, status: number, data: unknown) {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.end(JSON.stringify(data));
+}
+
+function vitePluginYardFeedApi(): Plugin {
+  return {
+    name: "yard-feed-api",
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url?.split("?")[0] ?? "";
+        if (url !== "/api/updates" && url !== "/api/sitemap" && url !== "/sitemap.xml" && url !== "/api/publish-update") {
+          next();
+          return;
+        }
+
+        const { getUpdateById, listYardUpdates, latestUpdate, getSiteUrl, INDEXNOW_KEY } = await import("./shared/yard-feed");
+
+        if (url === "/api/updates") {
+          const id = new URL(req.url ?? "/", "http://localhost").searchParams.get("id");
+          if (id) {
+            const update = getUpdateById(id);
+            json(res, update ? 200 : 404, update ? { update } : { error: "Update not found" });
+            return;
+          }
+          json(res, 200, { updates: listYardUpdates() });
+          return;
+        }
+
+        if (url === "/api/publish-update") {
+          json(res, 200, { ok: true, published: latestUpdate().id, note: "Local publish (IndexNow skipped)" });
+          return;
+        }
+
+        const origin = getSiteUrl();
+        const now = new Date();
+        const today = now.toISOString().slice(0, 10);
+        const updates = listYardUpdates(now);
+        const staticPaths = ["/", "/products", "/updates", "/gallery", "/about", "/jindal", "/contact", "/catalogue"];
+        const body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticPaths
+  .map(
+    (p) => `  <url><loc>${origin}${p}</loc><lastmod>${p === "/updates" ? updates[0]?.publishedAt.slice(0, 10) ?? today : today}</lastmod></url>`
+  )
+  .join("\n")}
+${updates
+  .map((u) => `  <url><loc>${origin}/updates/${u.id}</loc><lastmod>${u.publishedAt.slice(0, 10)}</lastmod></url>`)
+  .join("\n")}
+</urlset>`;
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/xml; charset=utf-8");
+        res.end(body);
+        void INDEXNOW_KEY;
+      });
+    },
+  };
+}
+
 function vitePluginInquiryApi(): Plugin {
   return {
     name: "inquiry-api",
@@ -247,7 +307,7 @@ function vitePluginInquiryApi(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy(), vitePluginInquiryApi()];
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy(), vitePluginInquiryApi(), vitePluginYardFeedApi()];
 
 export default defineConfig({
   plugins,

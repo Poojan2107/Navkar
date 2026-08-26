@@ -37,7 +37,7 @@ export default function Catalogue() {
       title: "Ceramic Coated Lancing Pipes",
       subtitle: "Refractory Coated & Calorized • Manufactured in Ahmedabad",
       desc: "High-temperature ceramic coated lancing pipe dimensions, thermal oxidation limits, slag resistance data, and furnace application guides.",
-      specs: ["3/8\" to 1.5\" NB Sizes", "Thermal Limit Up to 1650°C", "Threaded & Socketed", "Steel Mills & Refineries"]
+      specs: ["6mm to 48.3 mm Sizes", "Thermal Limit Up to 1650°C", "Threaded & Socketed", "Steel Mills & Refineries"]
     },
     {
       num: "03",
@@ -102,8 +102,9 @@ export default function Catalogue() {
       {/* Main Download Banner Deck */}
       <section className="py-20 bg-white border-b border-gray-100">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="bg-[#0A1628] text-white rounded-3xl p-8 lg:p-12 border border-white/10 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="flex flex-col sm:flex-row items-center gap-8">
+          <div className="overflow-visible rounded-3xl border border-white/10 bg-[#0A1628] p-8 text-white shadow-2xl lg:p-12">
+            <div className="flex flex-col items-center gap-8 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+            <div className="flex min-w-0 flex-col items-center gap-8 sm:flex-row">
               {/* 3D Elevated Brochure Cover Mockup */}
               <div className="relative group shrink-0">
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#2D7A82] to-[#5EAEB3] opacity-50 blur-lg group-hover:opacity-80 transition duration-500" />
@@ -133,14 +134,14 @@ export default function Catalogue() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+            <div className="flex w-full min-w-0 shrink-0 flex-col gap-3 sm:max-w-md xl:w-[280px]">
               <a
                 href={IMG.brochure}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#2D7A82] text-white font-semibold text-xs tracking-wider uppercase rounded-full hover:bg-white hover:text-[#0A1628] transition-colors duration-300 shadow-lg whitespace-nowrap"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2D7A82] px-5 py-4 text-center text-xs font-semibold uppercase tracking-wider text-white shadow-lg transition-colors duration-300 hover:bg-white hover:text-[#0A1628]"
               >
-                <Download size={15} /> DOWNLOAD FULL CATALOG PDF
+                <Download size={15} className="shrink-0" /> DOWNLOAD FULL CATALOG PDF
               </a>
 
               <button
@@ -148,10 +149,11 @@ export default function Catalogue() {
                   setSelectedChapter("Printed Hardcopy Request");
                   setQuoteOpen(true);
                 }}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 border border-white/20 text-white font-semibold text-xs tracking-wider uppercase rounded-full hover:bg-white/10 transition-colors duration-300 whitespace-nowrap cursor-pointer"
+                className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-4 text-center text-xs font-semibold uppercase tracking-wider text-white transition-colors duration-300 hover:bg-white/10"
               >
                 REQUEST HARDCOPY / SAMPLES
               </button>
+            </div>
             </div>
           </div>
         </div>

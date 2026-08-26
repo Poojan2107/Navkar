@@ -53,6 +53,41 @@ async function startServer() {
     res.json({ ok: true, service: "navkar-tubes" });
   });
 
+  app.get("/api/updates", async (req, res) => {
+    const { getUpdateById, listYardUpdates } = await import("../shared/yard-feed");
+    const id = typeof req.query.id === "string" ? req.query.id : undefined;
+    if (id) {
+      const update = getUpdateById(id);
+      if (!update) {
+        res.status(404).json({ error: "Update not found" });
+        return;
+      }
+      res.json({ update });
+      return;
+    }
+    res.json({ updates: listYardUpdates() });
+  });
+
+  app.get(["/api/sitemap", "/sitemap.xml"], async (_req, res) => {
+    const { getSiteUrl, listYardUpdates } = await import("../shared/yard-feed");
+    const origin = getSiteUrl();
+    const today = new Date().toISOString().slice(0, 10);
+    const updates = listYardUpdates();
+    const pages = ["/", "/products", "/updates", "/gallery", "/about", "/jindal", "/contact", "/catalogue"];
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages.map((p) => `  <url><loc>${origin}${p}</loc><lastmod>${today}</lastmod></url>`).join("\n")}
+${updates.map((u) => `  <url><loc>${origin}/updates/${u.id}</loc><lastmod>${u.publishedAt.slice(0, 10)}</lastmod></url>`).join("\n")}
+</urlset>`;
+    res.type("application/xml").send(xml);
+  });
+
+  app.get("/api/publish-update", async (_req, res) => {
+    const { latestUpdate } = await import("../shared/yard-feed");
+    const update = latestUpdate();
+    res.json({ ok: true, published: update.id, title: update.title, publishedAt: update.publishedAt });
+  });
+
   app.post("/api/inquiry", (req, res) => {
     const body = req.body as InquiryBody;
 
