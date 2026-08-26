@@ -82,7 +82,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
   const textY = useTransform(scrollYProgress, [0, 0.25], [0, -40]);
 
   return (
-    <section className="relative h-screen min-h-[750px] overflow-hidden bg-[#0A1628]">
+    <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#0A1628] sm:min-h-[750px]">
       <motion.div style={{ scale: heroScale }} className="absolute inset-0">
         <img
           src={IMG.heroYard}
@@ -132,11 +132,11 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="mb-12 flex w-full max-w-sm flex-col items-center justify-center gap-4 sm:max-w-none sm:flex-row"
           >
             <button
               onClick={onRequestQuote}
-              className="group px-8 py-4 bg-[#2D7A82] text-white font-mono font-bold text-xs tracking-[0.2em] uppercase rounded-full hover:bg-[#5EAEB3] hover:scale-105 transition-all duration-300 flex items-center gap-3 shadow-lg shadow-[#2D7A82]/30 cursor-pointer"
+              className="group flex w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#2D7A82] px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-[#2D7A82]/30 transition-all duration-300 hover:scale-105 hover:bg-[#5EAEB3] sm:w-auto"
             >
               VIEW PRODUCTS &amp; GET QUOTE
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -144,7 +144,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
 
             <a
               href="/catalogue"
-              className="group px-8 py-4 bg-white/5 text-white border border-white/20 font-mono font-semibold text-xs tracking-[0.2em] uppercase rounded-full hover:bg-white/15 transition-all duration-300 flex items-center gap-3"
+              className="group flex w-full items-center justify-center gap-3 rounded-full border border-white/20 bg-white/5 px-8 py-4 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white/15 sm:w-auto"
             >
               <Download size={14} className="text-[#5EAEB3]" />
               CATALOGUE &amp; SPECS

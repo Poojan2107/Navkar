@@ -121,7 +121,7 @@ export default function QuoteModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-[100] flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -137,7 +137,7 @@ export default function QuoteModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden z-10 border border-gray-100"
+            className="relative z-10 mb-0 w-full max-w-2xl overflow-hidden rounded-t-3xl border border-gray-100 bg-white shadow-2xl sm:mb-0 sm:rounded-3xl"
           >
             {/* Modal Header */}
             <div className="bg-[#0A1628] text-white p-6 sm:p-8 relative">

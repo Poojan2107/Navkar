@@ -43,7 +43,7 @@ export default function Footer() {
       {/* Back to top */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-24 right-6 z-40 w-11 h-11 rounded-full bg-[#2D7A82] text-white flex items-center justify-center shadow-lg shadow-[#2D7A82]/30 hover:bg-[#5EAEB3] hover:-translate-y-1 transition-all duration-300 ${
+        className={`fixed bottom-28 right-3 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#2D7A82] text-white shadow-lg shadow-[#2D7A82]/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#5EAEB3] sm:right-6 ${
           showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
