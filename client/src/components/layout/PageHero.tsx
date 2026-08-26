@@ -21,14 +21,14 @@ export default function PageHero({
 
   return (
     <section
-      className={`relative ${minHeight} overflow-hidden bg-[#0A1628] flex items-center justify-center pt-32 lg:pt-36 pb-14 lg:pb-18`}
+      className={`relative ${minHeight} overflow-hidden bg-[#0A1628] flex items-center justify-center pt-[calc(6.5rem+env(safe-area-inset-top))] pb-12 sm:pt-32 lg:pt-36 lg:pb-16`}
     >
       <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:24px_24px]" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/60 via-[#0A1628]/88 to-[#0A1628]" />
 
       <motion.div
         style={{ opacity }}
-        className="relative z-10 w-full max-w-5xl px-6 text-center"
+        className="relative z-10 w-full max-w-5xl px-5 text-center sm:px-6"
       >
         {badge && (
           <motion.div
@@ -45,7 +45,7 @@ export default function PageHero({
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-5 leading-[1.1] font-semibold tracking-tight"
+          className="mb-4 font-display text-[1.85rem] font-semibold leading-[1.12] tracking-tight text-white sm:mb-5 sm:text-5xl lg:text-6xl"
         >
           {title}
         </motion.h1>

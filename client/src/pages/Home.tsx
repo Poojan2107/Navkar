@@ -82,7 +82,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
   const textY = useTransform(scrollYProgress, [0, 0.25], [0, -40]);
 
   return (
-    <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#0A1628] sm:min-h-[750px]">
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0A1628] supports-[height:100dvh]:min-h-[100dvh]">
       <motion.div style={{ scale: heroScale }} className="absolute inset-0">
         <img
           src={IMG.heroYard}
@@ -94,13 +94,13 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
         <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
-      <motion.div style={{ opacity: heroOpacity }} className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-20">
-        <motion.div style={{ y: textY }} className="text-center max-w-5xl">
+      <motion.div style={{ opacity: heroOpacity }} className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-5 pb-8 pt-[calc(4.5rem+env(safe-area-inset-top))] sm:px-6 sm:pt-20">
+        <motion.div style={{ y: textY }} className="w-full max-w-5xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2D7A82]/20 border border-[#2D7A82]/40 text-[#5EAEB3] text-[11px] font-mono font-bold tracking-[0.25em] uppercase mb-6"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#2D7A82]/40 bg-[#2D7A82]/20 px-3.5 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#5EAEB3] sm:mb-6 sm:px-4 sm:text-[11px] sm:tracking-[0.25em]"
           >
             <Sparkles size={13} /> Since 1995 · Ahmedabad, Gujarat
           </motion.div>
@@ -109,7 +109,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[0.92] mb-8 font-semibold tracking-tight"
+            className="mb-5 font-display text-[2.15rem] font-semibold leading-[0.95] tracking-tight text-white sm:mb-8 sm:text-6xl md:text-7xl lg:text-8xl"
           >
             Built for what
             <br />
@@ -122,7 +122,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-white/70 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="mx-auto mb-7 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:mb-10 sm:text-lg lg:text-xl"
           >
             Authorized Jindal pipe stock from Ahmedabad. MS ERW, GI hollow sections,
             Ceramic Lancing tubes, and project logistics — 15 MM to 500 MM, certified &amp; available for immediate dispatch.
@@ -132,11 +132,11 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mb-12 flex w-full max-w-sm flex-col items-center justify-center gap-4 sm:max-w-none sm:flex-row"
+            className="mb-8 flex w-full max-w-sm flex-col items-center justify-center gap-3 sm:mb-12 sm:max-w-none sm:flex-row sm:gap-4"
           >
             <button
               onClick={onRequestQuote}
-              className="group flex w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#2D7A82] px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-[#2D7A82]/30 transition-all duration-300 hover:scale-105 hover:bg-[#5EAEB3] sm:w-auto"
+              className="group flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#2D7A82] px-8 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-lg shadow-[#2D7A82]/30 transition-all duration-300 hover:bg-[#5EAEB3] sm:w-auto sm:text-xs sm:tracking-[0.2em] sm:hover:scale-105"
             >
               VIEW PRODUCTS &amp; GET QUOTE
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -144,7 +144,7 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
 
             <a
               href="/catalogue"
-              className="group flex w-full items-center justify-center gap-3 rounded-full border border-white/20 bg-white/5 px-8 py-4 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white/15 sm:w-auto"
+              className="group flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-white/20 bg-white/5 px-8 py-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-white/15 sm:w-auto sm:text-xs sm:tracking-[0.2em]"
             >
               <Download size={14} className="text-[#5EAEB3]" />
               CATALOGUE &amp; SPECS
@@ -155,16 +155,16 @@ function HeroSection({ onRequestQuote }: { onRequestQuote: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto pt-6 border-t border-white/10"
+            className="mx-auto grid max-w-4xl grid-cols-3 gap-2 border-t border-white/10 pt-5 sm:gap-3 sm:pt-6"
           >
             {[
               { label: "DEALERSHIP", value: "Jindal Authorized Partner" },
               { label: "READY STOCK", value: "1,000+ MT Ahmedabad Stock" },
               { label: "PIPE SIZES", value: "15 MM to 500 MM OD" },
             ].map((m, i) => (
-              <div key={i} className="p-3 bg-white/[0.04] backdrop-blur rounded-xl border border-white/[0.08]">
-                <span className="block text-[10px] font-mono text-[#5EAEB3] uppercase tracking-[0.2em] font-bold mb-0.5">{m.label}</span>
-                <span className="text-white text-xs font-semibold">{m.value}</span>
+              <div key={i} className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-2 backdrop-blur sm:p-3">
+                <span className="mb-0.5 block text-[8px] font-mono font-bold uppercase tracking-[0.12em] text-[#5EAEB3] sm:text-[10px] sm:tracking-[0.2em]">{m.label}</span>
+                <span className="text-[11px] font-semibold leading-snug text-white sm:text-xs">{m.value}</span>
               </div>
             ))}
           </motion.div>
@@ -244,7 +244,7 @@ function TrustMosaicTile({
 
 function TrustHub({ onOpenCert }: { onOpenCert: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-[#FAFAF8] py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-[#FAFAF8] py-16 lg:py-32">
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] bg-[radial-gradient(#0A1628_1px,transparent_1px)] [background-size:20px_20px]" />
       <div className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#2D7A82]/[0.07] blur-3xl" />
       <div className="pointer-events-none absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#2D7A82]/[0.05] blur-3xl" />
@@ -291,7 +291,7 @@ function TrustHub({ onOpenCert }: { onOpenCert: () => void }) {
           </FadeUp>
 
           <FadeUp delay={0.08} className="lg:col-span-7">
-            <div className="grid min-h-[460px] grid-cols-12 grid-rows-2 gap-3 sm:gap-4 lg:min-h-[520px]">
+            <div className="grid min-h-0 grid-cols-12 grid-rows-none gap-3 sm:min-h-[460px] sm:grid-rows-2 sm:gap-4 lg:min-h-[520px]">
               <TrustMosaicTile
                 className="col-span-12 row-span-2 sm:col-span-7"
                 src={IMG.yardPanoramic}
@@ -504,15 +504,22 @@ function ProductsSection() {
               <div
                 key={p.id}
                 onMouseEnter={() => {
-                  if (timer.current) clearTimeout(timer.current);
-                  timer.current = setTimeout(() => setActive(i), 120);
+                  if (window.matchMedia("(hover: hover)").matches) {
+                    if (timer.current) clearTimeout(timer.current);
+                    timer.current = setTimeout(() => setActive(i), 120);
+                  }
+                }}
+                onClick={() => {
+                  if (window.matchMedia("(hover: none)").matches) {
+                    setActive(isA ? null : i);
+                  }
                 }}
                 style={{
                   flex: isA ? "3 1 0%" : "1 1 0%",
                   minWidth: 0,
                   transition: `flex ${isA ? "0.5s" : "0.35s"} ${CSS_EASE}, border-color 0.5s ${CSS_EASE}, opacity 0.4s ${CSS_EASE}, transform 0.4s ${CSS_EASE}`,
                 }}
-                className={`relative min-w-0 overflow-hidden rounded-3xl border flex flex-col justify-end p-6 sm:p-8 cursor-pointer ${
+                className={`relative min-h-[210px] min-w-0 cursor-pointer overflow-hidden rounded-3xl border flex flex-col justify-end p-5 sm:min-h-0 sm:p-8 ${
                   isA
                     ? "border-[#5EAEB3]/80 bg-[#0F2238] z-10 shadow-[0_0_40px_rgba(94,174,179,0.15)]"
                     : isDim
@@ -654,8 +661,8 @@ function WhyNavkarSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-[#FAFAF8] relative overflow-hidden border-y border-gray-200">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+    <section className="relative overflow-hidden border-y border-gray-200 bg-[#FAFAF8] py-16 lg:py-32">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-12">
         <SectionLabel text="Proven Advantage" />
         <FadeUp>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6">
@@ -734,12 +741,12 @@ function IndustrySection({ onRequestQuote }: { onRequestQuote: () => void }) {
   ];
 
   return (
-    <section className="py-28 lg:py-40 bg-[#0A1628] text-white relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#0A1628] py-16 text-white lg:py-40">
       <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:28px_28px]" />
       <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-[#2D7A82]/[0.05] blur-[150px] pointer-events-none" />
       <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#5EAEB3]/[0.04] blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-8">
           <div className="max-w-2xl">
             <SectionLabel text="Industries Served" dark />
@@ -774,8 +781,7 @@ function IndustrySection({ onRequestQuote }: { onRequestQuote: () => void }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.12, ease: [0.23, 1, 0.32, 1] }}
-              className="group relative overflow-hidden rounded-3xl border border-white/[0.08] hover:border-[#2D7A82]/60 transition-all duration-500 shadow-xl"
-              style={{ aspectRatio: "3/4" }}
+              className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/[0.08] shadow-xl transition-all duration-500 hover:border-[#2D7A82]/60 sm:aspect-[3/4]"
             >
               <img
                 src={ind.img}
@@ -821,9 +827,9 @@ function IndustrySection({ onRequestQuote }: { onRequestQuote: () => void }) {
 /* ─── 7. JINDAL AUTHORIZATION ─── DARK */
 function JindalSection({ onOpenCert }: { onOpenCert: () => void }) {
   return (
-    <section className="py-24 lg:py-32 bg-[#0A1628] text-white relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#0A1628] py-16 text-white lg:py-32">
       <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:24px_24px]" />
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <SectionLabel text="Official Mill Partner" dark />
@@ -887,13 +893,13 @@ function FAQSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-[#0A1628] text-white relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#0A1628] py-16 text-white lg:py-32">
       <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:24px_24px]" />
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#2D7A82]/[0.06] to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-white/[0.02] to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-1/3 w-[600px] h-[600px] bg-gradient-radial from-[#2D7A82]/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           {/* Left: decorative header */}
           <div className="lg:col-span-5 flex flex-col justify-between">
@@ -953,7 +959,7 @@ function FAQSection() {
                         <span className="flex-1 leading-snug">{faq.q}</span>
                         <ChevronDown size={16} className="text-[#2D7A82] shrink-0 transition-transform duration-300" />
                       </AccordionTrigger>
-                      <AccordionContent className="text-white/50 text-sm leading-relaxed px-6 lg:px-8 pb-6 pl-[4.25rem]">
+                      <AccordionContent className="px-6 pb-6 pl-6 text-sm leading-relaxed text-white/50 lg:px-8 lg:pl-[4.25rem]">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -975,7 +981,7 @@ function LocationSection() {
       {/* Accent corner gradient */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-[#2D7A82]/[0.05] to-transparent rounded-full pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-12">
         <div className="mx-auto mb-12 max-w-3xl text-center">
           <SectionLabel text="Visit Our Yards" centered />
           <FadeUp>
@@ -1055,14 +1061,14 @@ function LocationSection() {
                 <p className="text-[10px] font-mono font-bold text-[#5EAEB3] uppercase tracking-[0.2em] mb-2">Direct Procurement Line</p>
                 <p className="font-display text-lg font-semibold mb-1">Stock available — dispatched from Ahmedabad</p>
                 <p className="text-white/50 text-xs mb-4">Call for bulk requirements, project logistics, or export enquiries.</p>
-                <div className="flex gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row">
                   <a href="tel:+919601702883"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2D7A82] text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#5EAEB3] transition-colors"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#2D7A82] px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#5EAEB3]"
                   >
                     +91 96017 02883
                   </a>
                   <a href="mailto:navkartube@gmail.com"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.08] border border-white/10 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-white/15 transition-colors"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/15"
                   >
                     Email Us
                   </a>
@@ -1128,7 +1134,7 @@ function CTASection({ onRequestQuote }: { onRequestQuote: () => void }) {
         <FadeUp delay={0.2}>
           <button
             onClick={onRequestQuote}
-            className="group inline-flex items-center gap-3 px-12 py-5 bg-[#2D7A82] text-white font-mono font-semibold text-xs tracking-[0.2em] uppercase rounded-full hover:bg-white hover:text-[#0A1628] transition-all duration-300 cursor-pointer shadow-2xl hover:scale-105"
+            className="group inline-flex min-h-12 w-full max-w-sm cursor-pointer items-center justify-center gap-3 rounded-full bg-[#2D7A82] px-8 py-5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-2xl transition-all duration-300 hover:bg-white hover:text-[#0A1628] sm:w-auto sm:px-12 sm:hover:scale-105"
           >
             REQUEST A QUOTE
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

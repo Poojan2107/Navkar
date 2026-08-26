@@ -54,6 +54,15 @@ export default function QuoteModal({
       setCategory(defaultCategory);
     }
   }, [isOpen, defaultCategory]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen]);
   const [od, setOd] = useState(defaultSpec?.od ? String(defaultSpec.od) : "");
   const [thickness, setThickness] = useState(defaultSpec?.wall ? String(defaultSpec.wall) : "");
   const [quantity, setQuantity] = useState("");
@@ -121,8 +130,7 @@ export default function QuoteModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -131,29 +139,31 @@ export default function QuoteModal({
             className="fixed inset-0 bg-[#0A1628]/80 backdrop-blur-md"
           />
 
-          {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="relative z-10 mb-0 w-full max-w-2xl overflow-hidden rounded-t-3xl border border-gray-100 bg-white shadow-2xl sm:mb-0 sm:rounded-3xl"
+            exit={{ opacity: 0, y: 32 }}
+            transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+            className="relative z-10 flex w-full max-w-2xl max-h-[min(94dvh,100%)] flex-col overflow-hidden rounded-t-[1.75rem] border border-gray-100 bg-white shadow-2xl sm:max-h-[90vh] sm:rounded-3xl"
           >
-            {/* Modal Header */}
-            <div className="bg-[#0A1628] text-white p-6 sm:p-8 relative">
+            <div className="flex justify-center pt-2 sm:hidden">
+              <span className="h-1 w-10 rounded-full bg-gray-200" />
+            </div>
+            <div className="relative bg-[#0A1628] px-5 py-5 text-white sm:p-8">
               <button
                 onClick={onClose}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+                aria-label="Close quote form"
+                className="tap-44 absolute right-3 top-4 flex items-center justify-center rounded-full bg-white/10 p-2 text-white/70 transition-colors hover:bg-white/20 hover:text-white sm:right-6 sm:top-6"
               >
                 <X size={18} />
               </button>
-              <p className="text-[10px] font-mono font-semibold tracking-[0.3em] text-[#5EAEB3] uppercase mb-2">
+              <p className="mb-2 pr-10 text-[10px] font-mono font-semibold uppercase tracking-[0.3em] text-[#5EAEB3]">
                 [ DIRECT YARD DISPATCH QUOTE ]
               </p>
-              <h2 className="font-display text-2xl sm:text-3xl text-white">
+              <h2 className="font-display text-[1.65rem] leading-tight text-white sm:text-3xl">
                 Request Specifications & Pricing
               </h2>
-              <p className="text-white/50 text-xs sm:text-sm mt-2">
+              <p className="mt-2 text-xs text-white/50 sm:text-sm">
                 Authorized Jindal Pipe Stockist &middot; Same-day quote from Ahmedabad yards
               </p>
             </div>
@@ -170,7 +180,7 @@ export default function QuoteModal({
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
+              <form onSubmit={handleSubmit} className="max-h-[min(70dvh,32rem)] space-y-6 overflow-y-auto p-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:max-h-[60vh] sm:p-8">
                 {/* Product Category Selection */}
                 <div>
                   <label htmlFor="quote-product-category" className="block text-xs font-mono font-semibold uppercase tracking-wider text-gray-500 mb-2">

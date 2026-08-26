@@ -170,7 +170,7 @@ export default function Catalogue() {
           <div className="space-y-6">
             {chapters.map((chap, idx) => (
               <FadeUp key={idx} delay={idx * 0.06}>
-                <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row justify-between gap-8 items-start lg:items-center">
+                <div className="flex flex-col items-start justify-between gap-6 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-lg sm:p-8 lg:flex-row lg:items-center lg:gap-8">
                   <div className="flex items-start gap-6">
                     <span className="font-display text-3xl sm:text-4xl font-bold text-[#2D7A82] shrink-0">
                       {chap.num}

@@ -40,17 +40,21 @@ export default function Footer() {
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#2D7A82_1px,transparent_1px)] [background-size:24px_24px]" />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-[#2D7A82]/[0.04] to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      {/* Back to top */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-28 right-3 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#2D7A82] text-white shadow-lg shadow-[#2D7A82]/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#5EAEB3] sm:right-6 ${
-          showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+        aria-label="Back to top"
+        className={`fixed z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#2D7A82] text-white shadow-lg shadow-[#2D7A82]/30 transition-opacity duration-300 hover:bg-[#5EAEB3] ${
+          showBackToTop ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
+        style={{
+          left: "max(0.75rem, env(safe-area-inset-left))",
+          bottom: "max(1.25rem, env(safe-area-inset-bottom))",
+        }}
       >
         <ArrowUpToLine size={16} />
       </button>
 
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 pt-16 lg:pt-20 pb-8">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 pt-14 pb-[max(5.75rem,calc(env(safe-area-inset-bottom)+5.25rem))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-4">

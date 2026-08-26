@@ -93,9 +93,9 @@ export default function Gallery() {
       </section>
 
       {/* Main Showcase Mode Switcher Bar */}
-      <section className="bg-[#0A1628] border-t border-white/10 sticky top-[72px] z-30 shadow-md">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex justify-center sm:justify-start gap-3 py-4 overflow-x-auto">
+      <section className="sticky top-[var(--nav-offset)] z-30 border-t border-white/10 bg-[#0A1628] shadow-md">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
+          <div className="scrollbar-none flex justify-start gap-3 overflow-x-auto py-3 sm:py-4">
             {[
               { id: "photos", label: `Dispatch & Export Media (${allImages.length})`, icon: <ImageIcon size={15} /> },
               { id: "video", label: "Live Yard Video Tour", icon: <Video size={15} /> },
@@ -103,7 +103,7 @@ export default function Gallery() {
               <button
                 key={tab.id}
                 onClick={() => setShowcaseMode(tab.id as any)}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                className={`flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   showcaseMode === tab.id
                     ? "bg-[#2D7A82] text-white shadow-lg shadow-[#2D7A82]/30"
                     : "text-white/60 hover:text-white hover:bg-white/10"

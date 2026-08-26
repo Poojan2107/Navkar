@@ -268,8 +268,9 @@ export default function ProductsPage() {
     <PageShell darkNav>
       <PageHero
         badge={
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#2D7A82]/40 bg-[#2D7A82]/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#5EAEB3] shadow-sm">
-            <Layers size={14} /> Jindal & Asian Dealership · Ceramic Lancing Manufacturer
+          <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#2D7A82]/40 bg-[#2D7A82]/20 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-[#5EAEB3] shadow-sm sm:px-4 sm:text-xs sm:tracking-widest">
+            <Layers size={14} className="shrink-0" />
+            <span className="text-left leading-tight">Jindal & Asian Dealership · Ceramic Lancing Manufacturer</span>
           </span>
         }
         title="Industrial Product Portfolio"
@@ -277,7 +278,7 @@ export default function ProductsPage() {
       />
 
       {/* Search & category filter — single control strip */}
-      <section className="sticky top-[72px] z-30 border-b border-white/10 bg-[#0A1628] shadow-lg">
+      <section className="sticky top-[var(--nav-offset)] z-30 border-b border-white/10 bg-[#0A1628] shadow-lg">
         <div className="mx-auto max-w-[1440px] space-y-3 px-4 py-4 sm:px-6 lg:px-12">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative min-w-0 flex-1 sm:max-w-md">
@@ -286,7 +287,7 @@ export default function ProductsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search standards, grades, sizes…"
-                className="w-full rounded-xl border border-white/15 bg-white/10 py-2.5 pl-10 pr-9 text-sm text-white placeholder:text-white/40 focus:border-[#2D7A82] focus:bg-white/15 focus:outline-none"
+                className="min-h-11 w-full rounded-xl border border-white/15 bg-white/10 py-2.5 pl-10 pr-9 text-base text-white placeholder:text-white/40 focus:border-[#2D7A82] focus:bg-white/15 focus:outline-none sm:text-sm"
               />
               {searchQuery && (
                 <button
@@ -307,7 +308,7 @@ export default function ProductsPage() {
                 id="product-category"
                 value={activeCategory}
                 onChange={(e) => selectCategory(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-white/15 bg-white/10 py-2.5 pl-4 pr-10 text-sm font-semibold text-white focus:border-[#2D7A82] focus:bg-white/15 focus:outline-none"
+                className="min-h-11 w-full appearance-none rounded-xl border border-white/15 bg-white/10 py-2.5 pl-4 pr-10 text-base font-semibold text-white focus:border-[#2D7A82] focus:bg-white/15 focus:outline-none sm:text-sm"
               >
                 {productCategories.map((cat) => {
                   const count =
@@ -403,16 +404,16 @@ export default function ProductsPage() {
                           ))}
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                           <button
                             onClick={() => openQuote(QUOTE_CATEGORY_BY_GROUP[product.id] || product.title)}
-                            className="inline-flex items-center gap-2 rounded-full bg-[#0A1628] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition-colors hover:bg-[#2D7A82]"
+                            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#0A1628] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition-colors hover:bg-[#2D7A82] sm:w-auto"
                           >
                             Request Quote <ArrowRight size={14} />
                           </button>
                           <button
                             onClick={() => setInspectingProduct(product)}
-                            className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[#0A1628] transition-colors hover:border-[#2D7A82] hover:text-[#2D7A82]"
+                            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[#0A1628] transition-colors hover:border-[#2D7A82] hover:text-[#2D7A82] sm:w-auto"
                           >
                             <Eye size={14} /> Spec Sheet
                           </button>
@@ -449,11 +450,11 @@ export default function ProductsPage() {
 
       {/* Detailed Spec Inspector Modal */}
       {inspectingProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-black/75 p-0 backdrop-blur-sm sm:items-center sm:p-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-10 border border-gray-200 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="relative max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-3xl border border-gray-200 bg-white p-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl sm:max-h-[90vh] sm:rounded-3xl sm:p-10"
           >
             <button
               onClick={() => setInspectingProduct(null)}
@@ -542,7 +543,7 @@ export default function ProductsPage() {
 
           <button
             onClick={() => openQuote("Custom Specification & MTC Inquiry")}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#2D7A82] text-white font-semibold text-xs tracking-wider uppercase rounded-full hover:bg-white hover:text-[#0A1628] transition-colors duration-500 whitespace-nowrap cursor-pointer shadow-lg"
+            className="inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#2D7A82] px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-lg transition-colors duration-500 hover:bg-white hover:text-[#0A1628] sm:w-auto"
           >
             INQUIRE WITH MTC <ArrowRight size={14} />
           </button>

@@ -115,9 +115,9 @@ export default function UpdatesPage() {
       </section>
 
       {/* Filter bar */}
-      <section className="sticky top-[72px] z-30 border-t border-white/10 bg-[#0A1628] shadow-md">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-          <div className="flex items-center gap-3 overflow-x-auto py-4">
+      <section className="sticky top-[var(--nav-offset)] z-30 border-t border-white/10 bg-[#0A1628] shadow-md">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
+          <div className="scrollbar-none flex items-center gap-3 overflow-x-auto py-3 sm:py-4">
             <span className="mr-2 flex shrink-0 items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-white/50">
               <Filter size={14} /> Filter:
             </span>
