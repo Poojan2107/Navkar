@@ -66,7 +66,7 @@ export default function Navigation() {
                   (e.target as HTMLElement).setAttribute("src", IMG.navkarEmblem);
                 }}
               />
-              <div className="flex flex-col pr-1 text-left leading-tight">
+              <div className="hidden min-[360px]:flex flex-col pr-1 text-left leading-tight">
                 <span className="font-mono text-[12px] font-bold tracking-[0.14em] uppercase text-white transition-colors group-hover:text-[#5EAEB3]">
                   NAVKAR
                 </span>
