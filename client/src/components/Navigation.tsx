@@ -55,11 +55,11 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             <a href="/" className="group relative z-10 flex shrink-0 items-center py-1">
               <img
-                src={IMG.logoFullWhite}
+                src={IMG.emblem}
                 alt="Navkar Tubes & Tools"
-                className="h-8 w-auto sm:h-9 lg:h-10"
+                className="h-9 w-auto sm:h-10 lg:h-11"
                 onError={(e) => {
-                  (e.target as HTMLElement).setAttribute("src", IMG.logo);
+                  (e.target as HTMLElement).setAttribute("src", IMG.navkarEmblem);
                 }}
               />
             </a>

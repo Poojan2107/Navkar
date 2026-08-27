@@ -7,7 +7,7 @@ export const IMG = {
   logo: "/images/navkar/logo-lockup-teal-clear.png",
   logoTeal: "/images/navkar/logo-lockup-teal-clear.png",
   logoWhite: "/images/navkar/logo-lockup-white-clear.png",
-  emblem: "/images/navkar/logo-emblem-hero.png",
+  emblem: "/images/navkar/logo-emblem-clean.png",
   heroMark: "/images/navkar/logo-hero-mark.png",
   navkarEmblem: "/images/navkar/navkar-emblem.png",
   logoLight: "/images/navkar/logo-light.png",
