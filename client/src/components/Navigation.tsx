@@ -52,40 +52,54 @@ export default function Navigation() {
         style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}
       >
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
-          <div className="flex items-center justify-between">
-            <a href="/" className="group relative z-10 flex shrink-0 items-center py-1">
+          <div className="flex items-center justify-between gap-4">
+            <a
+              href="/"
+              aria-label="Navkar Tubes & Tools Home"
+              className="group relative z-10 flex shrink-0 items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-[#5EAEB3]/60 hover:bg-white/[0.12] hover:shadow-[#2D7A82]/20 hover:shadow-xl sm:px-3.5"
+            >
               <img
                 src={IMG.emblem}
                 alt="Navkar Tubes & Tools"
-                className="h-9 w-auto sm:h-10 lg:h-11"
+                className="h-8 w-auto sm:h-9 lg:h-10 drop-shadow-[0_2px_8px_rgba(94,174,179,0.4)] transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
                   (e.target as HTMLElement).setAttribute("src", IMG.navkarEmblem);
                 }}
               />
+              <div className="flex flex-col pr-1 text-left leading-tight">
+                <span className="font-mono text-[12px] font-bold tracking-[0.14em] uppercase text-white transition-colors group-hover:text-[#5EAEB3]">
+                  NAVKAR
+                </span>
+                <span className="text-[8.5px] font-medium tracking-[0.16em] uppercase text-white/60 group-hover:text-white/90">
+                  TUBES &amp; TOOLS
+                </span>
+              </div>
             </a>
 
-            <div className="hidden items-center gap-1.5 lg:flex">
+            <div className="hidden lg:flex items-center justify-center gap-0.5 xl:gap-1.5 flex-1 max-w-4xl mx-auto">
               {links.map((link) => {
                 const isActive = location === link.href || (link.href !== "/" && location.startsWith(link.href));
                 return (
                   <a
                     key={link.label}
                     href={link.href}
-                    className={`relative px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-all duration-300 ${
+                    className={`relative px-2.5 py-1.5 xl:px-3.5 xl:py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-all duration-300 ${
                       isActive ? "text-[#5EAEB3]" : "text-white/75 hover:text-white"
                     }`}
                   >
                     {link.label}
                     {isActive && (
-                      <div className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-[#2D7A82]" />
+                      <div className="absolute bottom-0 left-2.5 right-2.5 xl:left-3.5 xl:right-3.5 h-0.5 rounded-full bg-[#2D7A82]" />
                     )}
                   </a>
                 );
               })}
+            </div>
 
+            <div className="hidden lg:flex shrink-0 items-center gap-2.5">
               <a
                 href="tel:+919601702883"
-                className="ml-3 flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-xs font-medium text-white/90 transition-all hover:bg-white/15 hover:text-white"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-xs font-medium text-white/90 transition-all hover:bg-white/15 hover:text-white"
               >
                 <Phone size={12} className="text-[#5EAEB3]" />
                 +91 9601702883
@@ -93,7 +107,7 @@ export default function Navigation() {
 
               <button
                 onClick={() => setQuoteOpen(true)}
-                className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-[#2D7A82] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg transition-all hover:scale-105 hover:bg-[#236067] hover:shadow-xl"
+                className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[#2D7A82] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg transition-all hover:scale-105 hover:bg-[#236067] hover:shadow-xl"
               >
                 GET QUOTE <ArrowRight size={13} />
               </button>
